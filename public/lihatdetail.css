@@ -1,0 +1,168 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #222d37; /* Warna background gelap sesuai gambar */
+    color: #ffffff;
+    line-height: 1.6;
+    padding: 40px 20px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Header & Buttons */
+header {
+    position: relative;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.btn-back {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #7a7a7a;
+    color: white;
+    padding: 8px 25px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+/* Section Styling */
+.content-section {
+    margin-bottom: 40px;
+}
+
+h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.center-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+p {
+    margin-bottom: 15px;
+    color: #e0e0e0;
+    font-weight: 300;
+}
+
+/* Highlight Section (Middle part) */
+.highlight-bg {
+    background-color: #1a232b; /* Sedikit lebih gelap untuk kontras */
+    padding: 40px 20px;
+    margin: 40px -20px;
+}
+
+.features-list {
+    list-style: none;
+    margin-top: 20px;
+}
+
+.features-list li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+.features-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+/* Cards Layout */
+.cards-container {
+    display: flex;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.card {
+    background-color: #2a3744;
+    padding: 30px;
+    border-radius: 12px;
+    flex: 1;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    text-align: center;
+    min-height: 50px;
+}
+
+.card p {
+    font-size: 0.95rem;
+    text-align: left;
+}
+
+/* Footer Button */
+.footer-action {
+    text-align: center;
+    margin-top: 60px;
+}
+.footer-action :hover{
+    background: #c5a059;
+    color: #000;
+}
+.btn-contact {
+    background-color: #7a7a7a;
+    color: white;
+    border: none;
+    padding: 12px 40px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Responsive for Mobile */
+@media (max-width: 768px) {
+    .cards-container {
+        flex-direction: column;
+    }
+    
+    .btn-back {
+        position: static;
+        display: inline-block;
+        margin-bottom: 20px;
+    }
+}
+.wa-float {
+    position: fixed;
+    bottom: 90px;
+    right: 30px;
+    background: #25d366;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    z-index: 100;
+}
+.wa-float img { width: 30px; }
