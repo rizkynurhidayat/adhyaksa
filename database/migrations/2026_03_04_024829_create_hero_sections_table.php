@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('profil_pendiris', function (Blueprint $table) {
+        Schema::create('hero_sections', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('foto')->nullable();
+            $table->string('tagline_light');
+            $table->string('tagline_gold');
             $table->text('deskripsi');
-            $table->string('persentase_kasus')->default('95%');
-            $table->string('tahun_pengalaman')->default('12+');
+            $table->string('teks_tombol');
+            $table->string('bg_image');
+            $table->string('lawyer_image');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('profil_pendiris');
+        Schema::dropIfExists('hero_sections');
     }
 };

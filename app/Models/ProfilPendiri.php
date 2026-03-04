@@ -8,7 +8,6 @@ class ProfilPendiri extends Model
 {
     protected $fillable = [
         'nama',
-        'gelar',
         'foto',
         'deskripsi',
         'persentase_kasus',

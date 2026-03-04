@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('logo');
-            $table->string('website')->nullable();
+            $table->string('button_pengalaman');
+            $table->string('button_sukses');
+            $table->string('button_terlayani');
             $table->boolean('is_active')->default(true);
             $table->integer('urutan')->default(0);
             $table->timestamps();
