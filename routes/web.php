@@ -7,14 +7,24 @@ use App\Http\Controllers\Admin\ProfilPendiriController;
 use App\Http\Controllers\Admin\KontakController;
 use App\Http\Controllers\Admin\LayananController;
 use App\Http\Controllers\Admin\KlienController; 
-use App\Http\Controllers\Admin\BlogController;  
+use App\Http\Controllers\Admin\BlogController; 
+use App\Models\HeroSection; 
 use App\Models\ProfilPendiri;
+use App\Models\Layanan;
 
 // Landing Page Routes (Public)
 Route::get('/', function () {
+    $HeroSection = HeroSection::first();
     $profil = ProfilPendiri::first();
-    return view('index', compact('profil'));
+    $layanans = Layanan::where('is_active', 1)->orderBy('urutan', 'asc')->get();
+    return view('index', compact('HeroSection', 'profil', 'layanans'));
 });
+
+Route::get('/layanan/{slug}', function ($slug) {
+    $layanan = Layanan::where('slug', $slug)->firstOrFail();
+    return view('admin.layanan.detail', compact('layanan'));
+})->name('layanan.detail');
+
 Route::get('/hukumbisnis', function () { return view('hukumbisnis'); });
 Route::get('/hukumkontrak', function () { return view('hukumkontrak'); });
 Route::get('/hukumsengketa', function () { return view('hukumsengketa'); });

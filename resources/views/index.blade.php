@@ -121,15 +121,17 @@
             </div>
 
             <div class="layanan-grid">
+                @foreach($layanans as $layanan)
                 <div class="layanan-card">
-                    <img src="image/logo hukum.svg" alt="Hukum Bisnis">
-                    <h3>Hukum Bisnis</h3>
+                    <img src="{{ asset('storage/' . $layanan->ikon) }}" alt="{{ $layanan->judul }}">
+                    <h3>{{ $layanan->judul }}</h3>
                     <p class="subtitle">Yulistya Adi Nugraha</p>
                     <div class="card-footer">
-                        <span class="tag">95% kasus tertangani</span>
-                        <a href="hukumbisnis.html" class="btn-detail">Lihat Detail</a>
+                        <span class="tag">{{ $layanan->persentase_kasus ?? '95' }}% kasus tertangani</span>
+                        <a href="{{ route('layanan.detail', $layanan->slug) }}" class="btn-detail">Lihat Detail</a>
                     </div>
                 </div>
+                @endforeach
 
                 <div class="layanan-card">
                     <img src="image/logo hukum.svg" alt="Sengketa Lahan">
