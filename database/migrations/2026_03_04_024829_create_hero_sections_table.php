@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('hero_sections', function (Blueprint $table) {
-            $table->id();/
+            $table->id();
             $table->string('tagline_light');
             $table->string('tagline_gold');
             $table->text('deskripsi');
