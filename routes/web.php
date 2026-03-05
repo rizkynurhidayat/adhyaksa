@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\HeroSectionController;
 use App\Http\Controllers\Admin\ProfilPendiriController;
 use App\Http\Controllers\Admin\KontakController;
@@ -13,12 +14,8 @@ use App\Models\ProfilPendiri;
 use App\Models\Layanan;
 
 // Landing Page Routes (Public)
-Route::get('/', function () {
-    $HeroSection = HeroSection::first();
-    $profil = ProfilPendiri::first();
-    $layanans = Layanan::where('is_active', 1)->orderBy('urutan', 'asc')->get();
-    return view('index', compact('HeroSection', 'profil', 'layanans'));
-});
+
+Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/layanan/{slug}', function ($slug) {
     $layanan = Layanan::where('slug', $slug)->firstOrFail();

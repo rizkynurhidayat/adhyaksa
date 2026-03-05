@@ -60,8 +60,12 @@
             </div>
 
             <div class="hero-image">
-                <img src="image/imglawyer.png" alt="Lawyers">
-            </div>
+    @if($HeroSection && $HeroSection->lawyer_image)
+        <img src="{{ asset('storage/' . $HeroSection->lawyer_image) }}" alt="Lawyers">
+    @else
+        <img src="{{ asset('image/imglawyer.png') }}" alt="Lawyers">
+    @endif
+</div>
         </div>
     </header>
 

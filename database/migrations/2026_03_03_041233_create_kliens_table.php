@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('logo');
+            $table->string('website')->nullable();
             $table->string('button_pengalaman');
             $table->string('button_sukses');
             $table->string('button_terlayani');
