@@ -78,24 +78,29 @@
 
             <div class="founder-content">
                 <div class="founder-image-box">
-                    <img src="image/yulistia.png" alt="Yulistya Adi Nugraha">
+                    @if(isset($profil->foto) && $profil->foto)
+                        <img src="{{ asset('storage/' . $profil->foto) }}" alt="{{ $profil->nama ?? 'Pendiri' }}">
+                    @else
+                        <img src="image/yulistia.png" alt="Pendiri">
+                    @endif
                 </div>
 
                 <div class="founder-details">
-                    <h1 class="main-name">Yulistya Adi Nugraha S.H., M.Kn</h1>
+                    <h1 class="main-name">{{ $profil->nama ?? 'Yulistya Adi Nugraha S.H., M.Kn' }}</h1>
+                    @if(isset($profil->position) && $profil->position)
+                        <p class="founder-position" style="color: #c8a45a; font-weight: 600; margin-bottom: 10px;">{{ $profil->position }}</p>
+                    @endif
                     <p class="description">
-                        Meskipun kami berbasis di Kabupaten Tegal, layanan kenotariatan kami siap <br>membantu klien dari
-                        berbagai latar belakang—termasuk pemilik tanah di wilayah pelosok yang belum bersertifikat—untuk
-                        menembus kendala administrasi yang berbelit dan mendapatkan hak hukum mereka sepenuhnya.
+                        {{ $profil->deskripsi ?? 'Meskipun kami berbasis di Kabupaten Tegal, layanan kenotariatan kami siap membantu klien dari berbagai latar belakang—termasuk pemilik tanah di wilayah pelosok yang belum bersertifikat—untuk menembus kendala administrasi yang berbelit dan mendapatkan hak hukum mereka sepenuhnya.' }}
                     </p>
 
                     <div class="founder-stats">
                         <div class="stat-box gray-box">
-                            <span class="stat-number">95%</span>
+                            <span class="stat-number">{{ $profil->persentase_kasus ?? '95' }}%</span>
                             <span class="stat-desc">Kasus Sukses</span>
                         </div>
                         <div class="stat-box gold-box">
-                            <span class="stat-number">12+</span>
+                            <span class="stat-number">{{ $profil->tahun_pengalaman ?? '12' }}+</span>
                             <span class="stat-desc">Tahun<br>Pengalaman</span>
                         </div>
                     </div>

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ProfilPendiri;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Intervention\Image\Laravel\Facades\Image;
 
 class ProfilPendiriController extends Controller
 {
@@ -24,6 +26,7 @@ class ProfilPendiriController extends Controller
 
         $validatedData = $request->validate([
             'nama'             => 'required|string|max:255',
+            'position'         => 'nullable|string|max:255',
             'foto'             => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'deskripsi'        => 'required|string',
             'persentase_kasus' => 'required|integer|min:0|max:100',
@@ -35,8 +38,21 @@ class ProfilPendiriController extends Controller
             if ($profil && $profil->foto) {
                 Storage::disk('public')->delete($profil->foto);
             }
-            // Simpan foto baru ke folder 'profil'
-            $validatedData['foto'] = $request->file('foto')->store('profil', 'public');
+
+            // Proses resize & crop ke 600x600 px (rasio 1:1, dari tengah)
+            $file = $request->file('foto');
+            $filename = 'profil_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $destinationPath = 'profil';
+
+            // Pastikan folder tujuan ada
+            Storage::disk('public')->makeDirectory($destinationPath);
+
+            // Resize & crop menggunakan Intervention Image
+            $image = Image::read($file->getRealPath());
+            $image->cover(300, 300);
+            $image->save(Storage::disk('public')->path($destinationPath . '/' . $filename));
+
+            $validatedData['foto'] = $destinationPath . '/' . $filename;
         }
 
         // Gunakan updateOrCreate untuk ID 1 agar data tetap tunggal

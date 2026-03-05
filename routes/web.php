@@ -8,9 +8,13 @@ use App\Http\Controllers\Admin\KontakController;
 use App\Http\Controllers\Admin\LayananController;
 use App\Http\Controllers\Admin\KlienController; 
 use App\Http\Controllers\Admin\BlogController;  
+use App\Models\ProfilPendiri;
 
 // Landing Page Routes (Public)
-Route::get('/', function () { return view('index'); });
+Route::get('/', function () {
+    $profil = ProfilPendiri::first();
+    return view('index', compact('profil'));
+});
 Route::get('/hukumbisnis', function () { return view('hukumbisnis'); });
 Route::get('/hukumkontrak', function () { return view('hukumkontrak'); });
 Route::get('/hukumsengketa', function () { return view('hukumsengketa'); });
