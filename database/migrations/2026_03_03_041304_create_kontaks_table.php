@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('kontaks', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('email');
-            $table->string('telepon')->nullable();
-            $table->string('subjek');
-            $table->text('pesan');
-            $table->boolean('is_read')->default(false);
+            $table->string('email_1');
+            $table->string('email_2')->nullable(); // Opsional
+            $table->string('wa_1');
+            $table->string('wa_2')->nullable();    // Opsional
+            $table->text('alamat');
+            $table->string('link_google_maps'); // Link URL (https://maps.google.com
             $table->timestamps();
         });
     }
