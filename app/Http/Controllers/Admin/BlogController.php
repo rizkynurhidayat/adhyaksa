@@ -5,14 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Blog;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
 {
     public function index()
     {
-        $blogs = Blog::latest('tanggal_publish')->get();
+        // Mengambil data berdasarkan tanggal publish terbaru
+        $blogs = Blog::orderBy('tanggal_publish', 'desc')->get();
         return view('admin.blog.index', compact('blogs'));
     }
 
@@ -26,28 +26,23 @@ class BlogController extends Controller
         $validatedData = $request->validate([
             'judul'           => 'required|string|max:255',
             'gambar'          => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'ringkasan'       => 'required|string|max:500',
-            'konten'          => 'required|string',
-            'tag_statistik'   => 'nullable|string|max:50',
-            'is_published'    => 'nullable',
+            'tag_statistik'   => 'required|string|max:50',
+            'url_link'        => 'required|url',
             'tanggal_publish' => 'nullable|date',
         ]);
 
-        // 1. Generate Slug Otomatis
-        $validatedData['slug'] = Str::slug($request->judul);
-
-        // 2. Handle Upload Gambar
+        // Handle Upload Gambar
         if ($request->hasFile('gambar')) {
             $validatedData['gambar'] = $request->file('gambar')->store('blog', 'public');
         }
 
-        // 3. Handle Boolean & Date
-        $validatedData['is_published'] = $request->has('is_published') ? 1 : 0;
+        // Set default values sesuai migration baru
         $validatedData['tanggal_publish'] = $request->tanggal_publish ?? now();
+        $validatedData['is_active'] = true;
 
         Blog::create($validatedData);
 
-        return redirect()->route('admin.blog.index')->with('success', 'Artikel berhasil dibuat.');
+        return redirect()->route('admin.blog.index')->with('success', 'Link Blog berhasil ditambahkan.');
     }
 
     public function edit(string $id)
@@ -63,39 +58,35 @@ class BlogController extends Controller
         $validatedData = $request->validate([
             'judul'           => 'required|string|max:255',
             'gambar'          => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'ringkasan'       => 'required|string|max:500',
-            'konten'          => 'required|string',
-            'tag_statistik'   => 'nullable|string|max:50',
-            'is_published'    => 'nullable',
+            'tag_statistik'   => 'required|string|max:50',
+            'url_link'        => 'required|url',
             'tanggal_publish' => 'nullable|date',
         ]);
 
-        // Update Slug jika judul berubah
-        $validatedData['slug'] = Str::slug($request->judul);
-
         if ($request->hasFile('gambar')) {
+            // Hapus gambar lama jika ada upload baru
             if ($blog->gambar) {
                 Storage::disk('public')->delete($blog->gambar);
             }
             $validatedData['gambar'] = $request->file('gambar')->store('blog', 'public');
         }
 
-        $validatedData['is_published'] = $request->has('is_published') ? 1 : 0;
-        $validatedData['tanggal_publish'] = $request->tanggal_publish ?? $blog->tanggal_publish;
-
         $blog->update($validatedData);
 
-        return redirect()->route('admin.blog.index')->with('success', 'Artikel berhasil diperbarui.');
+        return redirect()->route('admin.blog.index')->with('success', 'Link Blog berhasil diperbarui.');
     }
 
     public function destroy(string $id)
     {
         $blog = Blog::findOrFail($id);
+        
+        // Hapus file fisik gambar dari storage
         if ($blog->gambar) {
             Storage::disk('public')->delete($blog->gambar);
         }
+        
         $blog->delete();
 
-        return redirect()->route('admin.blog.index')->with('success', 'Artikel berhasil dihapus.');
+        return redirect()->route('admin.blog.index')->with('success', 'Link Blog berhasil dihapus.');
     }
 }

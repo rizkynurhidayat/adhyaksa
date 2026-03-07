@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\HeroSection;
 use App\Models\ProfilPendiri;
 use App\Models\Layanan;
+use App\Models\Klien;
+use App\Models\Kontak;
+use App\Models\Blog;
 
 class HomeController extends Controller
 {
@@ -15,8 +18,13 @@ class HomeController extends Controller
         $HeroSection = HeroSection::first();
         $profil = ProfilPendiri::first();
         $layanans = Layanan::where('is_active', 1)->orderBy('urutan', 'asc')->get();
-
-        // Mengirim data ke view 'index'
-        return view('index', compact('HeroSection', 'profil', 'layanans'));
+        $klients = Klien::where('is_active', 1)->orderBy('urutan', 'asc')->get();
+        $clients = Klien::where('is_active', 1)->orderBy('urutan', 'asc')->get();
+        $clientCount = '100+'; // Contoh data, bisa diambil dari database
+        $successRate = '95%'; // Contoh data, bisa diambil dari database
+        $experienceYears = '12+'; // Contoh data, bisa diambil dari database
+        $blogs = Blog::latest()->take(3)->get();
+        $kontak = Kontak::first(); new Kontak(); // PERBAIKAN: Jika data null, buat objek baru agar Blade tidak error (Trying to access property on null)
+        return view('index', compact('HeroSection', 'profil', 'layanans', 'clients', 'clientCount', 'successRate', 'experienceYears', 'blogs', 'kontak'));
     }
 }

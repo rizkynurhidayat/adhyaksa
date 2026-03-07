@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('hero_sections', function (Blueprint $table) {
             $table->id();
-            $table->string('tagline_light');
-            $table->string('tagline_gold');
-            $table->text('deskripsi');
-            $table->string('teks_tombol');
-            $table->string('bg_image');
-            $table->string('lawyer_image');
+            $table->string('tagline_light')->nullable();
+            $table->string('tagline_gold')->nullable();
+            $table->text('deskripsi')->nullable();
+            $table->string('teks_tombol')->nullable();
+            $table->string('bg_image')->nullable();            
+            $table->string('lawyer_image')->nullable();
             $table->timestamps();
         });
     }

@@ -47,25 +47,25 @@
     
 
     <!--================== Beranda  ==================-->
-    <header class="hero">
-        <div class="hero-overlay"></div>
+    <header class="hero" style="background: url('{{ $HeroSection && $HeroSection->bg_image ? asset('storage/' . $HeroSection->bg_image) : asset('image/back-law.jpg') }}') no-repeat center center / cover;">        
+        <div class="hero-overlay"></div>        
         <div class="container hero-wrapper">
             <div class="hero-text">
                 <img src="image/simbol1.svg" alt="Icon" class="hero-icon">
-                <h1>Mitra Hukum Terpercaya <br><span>untuk Bisnis Anda</span></h1>
-                <p>Jasa konsultan hukum profesional yang memberikan solusi tepat, terpercaya, dan sesuai peraturan bagi individu maupun perusahaan.</p>
+                <h1>{{ $HeroSection ? $HeroSection->tagline_light : 'Mitra Hukum Terpercaya' }} <br><span>{{ $HeroSection ? $HeroSection->tagline_gold : 'untuk Bisnis Anda' }}</span></h1>
+                <p>{{ $HeroSection ? $HeroSection->deskripsi : 'Jasa konsultan hukum profesional yang memberikan solusi tepat, terpercaya, dan sesuai peraturan bagi individu maupun perusahaan.' }}</p>
                 <a href="#layanankami">
-                    <button class="btn-main">Dapatkan Layanan Kami</button>
+                    <button class="btn-main">{{ $HeroSection ? $HeroSection->teks_tombol : 'Dapatkan Layanan Kami' }}</button>
                 </a>
             </div>
 
             <div class="hero-image">
-    @if($HeroSection && $HeroSection->lawyer_image)
-        <img src="{{ asset('storage/' . $HeroSection->lawyer_image) }}" alt="Lawyers">
-    @else
-        <img src="{{ asset('image/imglawyer.png') }}" alt="Lawyers">
-    @endif
-</div>
+        @if($HeroSection && $HeroSection->lawyer_image)
+            <img src="{{ asset('storage/' . $HeroSection->lawyer_image) }}" alt="Lawyers">
+        @else
+            <img src="{{ asset('image/imglawyer.png') }}" alt="Lawyers">
+        @endif
+            </div>
         </div>
     </header>
 
@@ -129,7 +129,7 @@
                 <div class="layanan-card">
                     <img src="{{ asset('storage/' . $layanan->ikon) }}" alt="{{ $layanan->judul }}">
                     <h3>{{ $layanan->judul }}</h3>
-                    <p class="subtitle">Yulistya Adi Nugraha</p>
+                    <p class="subtitle">{{ $layanan->deskripsi_singkat }}</p>
                     <div class="card-footer">
                         <span class="tag">{{ $layanan->persentase_kasus ?? '95' }}% kasus tertangani</span>
                         <a href="{{ route('layanan.detail', $layanan->slug) }}" class="btn-detail">Lihat Detail</a>
@@ -181,6 +181,9 @@
 
             <div class="logo-slider">
                 <div class="logo-track">
+                    @foreach($clients as $client)
+                        <img src="{{ asset('storage/' . $client->logo) }}" alt="{{ $client->nama }}">
+                    @endforeach
                     <img src="image/geprek.png" alt="Geprek">
                     <img src="image/pertamina.png" alt="Pertamina">
                     <img src="image/pecel.png" alt="Pecel Lele">
@@ -194,20 +197,20 @@
 
             <div class="stats-container-row">
                 <div class="stat-item gold-card">
-                    <span class="stat-val">100+</span>
+                    <span class="stat-val">{{ $clientCount ?? '100+' }}</span>
                     <span class="stat-lab">Klien<br>Terlayani</span>
                 </div>
                 
                 <div class="stat-item dark-card">
                     <i class="fas fa-file-alt"></i>
                     <div class="stat-text-group">
-                        <span class="stat-val">95%</span>
+                        <span class="stat-val">{{ $successRate ?? '95%' }}</span>
                         <span class="stat-lab">Kasus Sukses</span>
                     </div>
                 </div>
 
                 <div class="stat-item gold-card">
-                    <span class="stat-val">12+</span>
+                    <span class="stat-val">{{ $experienceYears ?? '12+' }}</span>
                     <span class="stat-lab">Tahun<br>Pengalaman</span>
                 </div>
             </div>
@@ -226,17 +229,19 @@
             </div>
 
             <div class="blog-grid">
+                @foreach($blogs as $blog)
                 <article class="blog-card">
-                    <a href="#" class="blog-link">
-                        <div class="blog-img-wrapper">
-                            <img src="image/img blog1.png" alt="Kasus Hukum Bisnis">
+                <a href="{{ $blog->url_link }}" class="blog-link" target="_blank">                        
+                    <div class="blog-img-wrapper">
+                            <img src="{{ asset('storage/' . $blog->gambar) }}" alt="{{ $blog->judul }}">
                         </div>
                         <div class="blog-content">
-                            <h4>Adhyaksa & Partners Berhasil memenangkan kasus hukum bisnis</h4>
-                            <span class="stat-tag">97% orang terbantu</span>
+                            <h4>{{ $blog->judul }}</h4>
+                            <span class="stat-tag">{{ $blog->tag_statistik }}</span>
                         </div>
                     </a>
                 </article>
+                @endforeach
 
                 <article class="blog-card">
                     <a href="#" class="blog-link">
@@ -289,8 +294,10 @@
                     <img src="image/icons8-gmail-48.png">
                 </div>
                 <h3>Email Kami</h3>
-                <a href="mailto:adhyaksapartners@gmail.com">adhyaksapartners@gmail.com</a>
-                <a href="mailto:mitrahukum_anda@gmail.com">mitrahukum_anda@gmail.com</a>
+                <a href="mailto:{{ $kontak->email_1 ?? 'adhyaksapartners@gmail.com' }}">adhyaksapartners@gmail.com</a>
+                @if($kontak->email_2)
+                <a href="mailto:{{ $kontak->email_2 ?? 'mitrahukum_anda@gmail.com' }}">mitrahukum_anda@gmail.com</a>
+                @endif
             </div>
 
             <div class="contact-card">
@@ -298,8 +305,10 @@
                     <img src="image/wa.png">
                 </div>
                 <h3>WhatsApp</h3>
-                <a href="https://wa.me" target="_blank">+62 882-3962-7371</a>
-                <a href="https://wa.me" target="_blank">+62 857-7952-4825</a>
+                <a href="https://wa.me/{{ $kontak->wa_1 ?? '6288239627371' }}" target="_blank">+62 882-3962-7371</a>
+                @if($kontak->wa_2)
+                <a href="https://wa.me/{{ $kontak->wa_2 ?? '6285779524825' }}" target="_blank">+62 857-7952-4825</a>
+                @endif
             </div>
 
             <div class="contact-card">
@@ -307,13 +316,13 @@
                     <img src="image/google-maps.png">
                 </div>
                 <h3>Lokasi Kantor</h3>
-                <a href="https://maps.app.goo.gl/KpLbCPbegLo3VVkR9">Jl. KH. Agus Salim, Kudaile, Kec. Slawi, Kab. Tegal 524135</a>
+                <a href="{{ $kontak->alamat ?? 'https://maps.app.goo.gl/KpLbCPbegLo3VVkR9' }}" target="_blank">Jl. KH. Agus Salim, Kudaile, Kec. Slawi, Kab. Tegal 524135</a>
             </div>
         </div>
     </div>
 
     <div class="map-container">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31682.214506683496!2d109.10645432552936!3d-6.976630553532447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6fbeef3f898a49%3A0x9ab741554fbee2ec!2sNotaris%20Yulistya%20Adi%20Nugraha.%2C%20S.H.M.Kn!5e0!3m2!1sid!2sid!4v1768187812085!5m2!1sid!2sid" width="900" height="450" style="border:0;"  allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        {{!! $kontak->link_google_maps ?? '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31682.214506683496!2d109.10645432552936!3d-6.976630553532447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6fbeef3f898a49%3A0x9ab741554fbee2ec!2sNotaris%20Yulistya%20Adi%20Nugraha.%2C%20S.H.M.Kn!5e0!3m2!1sid!2sid!4v1768187812085!5m2!1sid!2sid" width="900" height="450" style="border:0;"  allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>' !!}}
     </div>
 
     <div class="footer-bottom">

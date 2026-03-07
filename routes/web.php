@@ -17,14 +17,19 @@ use App\Models\Layanan;
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/layanan/{slug}', function ($slug) {
+    // Mengarahkan tombol "Lihat Detail" ke file desain elegan (hukumsengketa.blade.php, dll)
+    Route::get('/layanan/{slug}', function ($slug) {
+    // Cari data di database
     $layanan = Layanan::where('slug', $slug)->firstOrFail();
+    // Mengubah slug menjadi nama file (contoh: hukum-sengketa jadi hukumsengketa)
+    $viewName = str_replace('-', '', $slug);
+    // Jika filenya ada di folder views, tampilkan desain elegan
+    if (view()->exists($viewName)) {
+        return view($viewName, compact('layanan'));
+    }
+    // Jika tidak ada file khusus, tampilkan detail standar admin
     return view('admin.layanan.detail', compact('layanan'));
 })->name('layanan.detail');
-
-Route::get('/hukumbisnis', function () { return view('hukumbisnis'); });
-Route::get('/hukumkontrak', function () { return view('hukumkontrak'); });
-Route::get('/hukumsengketa', function () { return view('hukumsengketa'); });
 
 // Authentication Routes
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');

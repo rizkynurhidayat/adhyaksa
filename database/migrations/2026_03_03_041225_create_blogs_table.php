@@ -14,13 +14,11 @@ return new class extends Migration
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
-            $table->string('slug')->unique();
-            $table->string('gambar')->nullable();
-            $table->text('ringkasan')->nullable();
-            $table->longText('konten');
-            $table->string('tag_statistik')->nullable();
-            $table->boolean('is_published')->default(false);
-            $table->timestamp('tanggal_publish')->nullable();
+            $table->string('gambar');
+            $table->string('tag_statistik');
+            $table->string('url_link');
+            $table->timestamp('tanggal_publish')->nullable(); // TAMBAHKAN INI
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

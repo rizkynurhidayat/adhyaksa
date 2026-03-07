@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('wa_1');
             $table->string('wa_2')->nullable();    // Opsional
             $table->text('alamat');
-            $table->string('link_google_maps'); // Link URL (https://maps.google.com
+            $table->text('link_google_maps'); // Link URL (https://maps.google.com
             $table->timestamps();
         });
     }

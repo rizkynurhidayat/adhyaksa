@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Layanan Hukum Bisnis</title>
+    <title>{{ $layanan->judul ?? 'Detail Layanan Hukum Bisnis' }}</title>
     <link rel="stylesheet" href="{{ asset('lihatdetail.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
@@ -12,7 +12,7 @@
     <div class="container">
         <header>
             <a href="AdhyaksaPartner.html" class="btn-back">Kembali</a>
-            <h1>Hukum Bisnis</h1>
+            <h1>{{ $layanan->judul ?? 'Hukum Bisnis' }}</h1>
         </header>
 
         <section class="content-section">
@@ -41,7 +41,7 @@
                 </div>
 
                 <div class="card">
-                    <h3>Legitimasi & Kredibilitas Profesional)</h3>
+                    <h3>Legitimasi & Kredibilitas Profesional</h3>
                     <p>Memiliki legalitas badan usaha dan perjanjian yang standar mengakui keberadaan bisnis Anda secara sah di mata negara dan mitra. Status ini meningkatkan kepercayaan investor, perbankan, dan klien, serta mencegah sengketa internal mengenai kepemilikan aset atau saham perusahaan.</p>
                 </div>
             </div>
