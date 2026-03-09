@@ -24,7 +24,7 @@ class KontakController extends Controller
             'wa_1'             => 'required|string|max:50',
             'wa_2'             => 'nullable|string|max:50',
             'alamat'           => 'required|string',
-            'link_google_maps' => 'required|string', 
+            'link_google_maps' => 'nullable|string', 
         ]);
 
         // Cari data berdasarkan ID, jika tidak ada (setelah migrate:fresh), maka buat baru

@@ -294,9 +294,9 @@
                     <img src="image/icons8-gmail-48.png">
                 </div>
                 <h3>Email Kami</h3>
-                <a href="mailto:{{ $kontak->email_1 ?? 'adhyaksapartners@gmail.com' }}">adhyaksapartners@gmail.com</a>
+                <a href="mailto:{{ $kontak->email_1 ?? 'adhyaksapartners@gmail.com' }}">{{ $kontak->email_1 ?? 'adhyaksapartners@gmail.com' }}</a>
                 @if($kontak?->email_2)
-                <a href="mailto:{{ $kontak->email_2 ?? 'mitrahukum_anda@gmail.com' }}">mitrahukum_anda@gmail.com</a>
+                <a href="mailto:{{ $kontak->email_2 ?? 'mitrahukum_anda@gmail.com' }}">{{ $kontak->email_2 ?? 'mitrahukum_anda@gmail.com' }}</a>
                 @endif
             </div>
 
@@ -305,9 +305,9 @@
                     <img src="image/wa.png">
                 </div>
                 <h3>WhatsApp</h3>
-                <a href="https://wa.me/{{ $kontak?->wa_1 ?? '6288239627371' }}" target="_blank">+62 882-3962-7371</a>
+                <a href="https://wa.me/{{ $kontak?->wa_1 ?? '6288239627371' }}" target="_blank">+{{ $kontak->wa_1 ?? '62 882-3962-7371' }}</a>
                 @if($kontak?->wa_2)
-                <a href="https://wa.me/{{ $kontak->wa_2 ?? '6285779524825' }}" target="_blank">+62 857-7952-4825</a>
+                <a href="https://wa.me/{{ $kontak->wa_2 ?? '6285779524825' }}" target="_blank">+{{ $kontak->wa_2 ?? '62 857-7952-4825' }}</a>
                 @endif
             </div>
 
@@ -316,14 +316,12 @@
                     <img src="image/google-maps.png">
                 </div>
                 <h3>Lokasi Kantor</h3>
-                <a href="{{ $kontak?->alamat ?? 'https://maps.app.goo.gl/KpLbCPbegLo3VVkR9' }}" target="_blank">Jl. KH. Agus Salim, Kudaile, Kec. Slawi, Kab. Tegal 524135</a>
+                <a href="#" target="_blank">{{ $kontak->alamat ?? 'Jl. KH. Agus Salim, Kudaile, Kec. Slawi, Kab. Tegal 524135' }}</a>
             </div>
         </div>
     </div>
 
-    <div class="map-container">
-        {!! $kontak?->link_google_maps ?? '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31682.214506683496!2d109.10645432552936!3d-6.976630553532447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6fbeef3f898a49%3A0x9ab741554fbee2ec!2sNotaris%20Yulistya%20Adi%20Nugraha.%2C%20S.H.M.Kn!5e0!3m2!1sid!2sid!4v1768187812085!5m2!1sid!2sid" width="900" height="450" style="border:0;"  allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>' !!}
-    </div>
+    {{-- Removed map container --}}
 
     <div class="footer-bottom">
         <div class="container bottom-content">
