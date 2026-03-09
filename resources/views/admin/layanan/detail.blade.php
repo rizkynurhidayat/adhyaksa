@@ -18,7 +18,17 @@
                     @endif
                     
                     <div class="konten-layanan mt-3">
-                        {!! $layanan->konten !!}
+                        <h5><strong>Apa Itu:</strong></h5>
+                        <p>{!! nl2br(e($layanan->apa_itu)) !!}</p>
+                        
+                        <h5 class="mt-4"><strong>Mengapa Membutuhkan:</strong></h5>
+                        <p>{!! nl2br(e($layanan->mengapa_butuh)) !!}</p>
+
+                        <h5 class="mt-4"><strong>Keuntungan:</strong></h5>
+                        <ul>
+                            @if($layanan->keuntungan_1) <li>{{ $layanan->keuntungan_1 }}</li> @endif
+                            @if($layanan->keuntungan_2) <li>{{ $layanan->keuntungan_2 }}</li> @endif
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -30,6 +40,9 @@
                     <h5 class="mb-0">Informasi Layanan</h5>
                 </div>
                 <div class="card-body">
+                    <p class="mb-1"><strong>Deskripsi Singkat:</strong></p>
+                    <p class="text-muted small mb-3">{{ $layanan->deskripsi_singkat }}</p>
+
                     <p class="mb-2"><strong>Persentase Sukses:</strong></p>
                     <div class="progress mb-3" style="height: 20px;">
                         <div class="progress-bar bg-warning" role="progressbar" style="width: {{ $layanan->persentase_kasus }}%;" aria-valuenow="{{ $layanan->persentase_kasus }}" aria-valuemin="0" aria-valuemax="100">
