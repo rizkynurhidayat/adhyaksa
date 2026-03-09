@@ -23,4 +23,13 @@ class DatabaseSeeder extends Seeder
             ]
         );
     }
+
+    public function run(): void
+    {
+        // Panggil seeder yang baru saja kita buat
+        $this->call([
+            ProductSeeder::class,
+            // UserSeeder::class, (kalau nanti ada seeder lain, tambahkan di sini)
+        ]);
+    }
 }
