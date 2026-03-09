@@ -45,6 +45,12 @@ class LayananController extends Controller
         return redirect()->route('admin.layanan.index')->with('success', 'Layanan berhasil ditambahkan.');
     }
 
+    public function edit(string $id)
+    {
+        $layanan = Layanan::findOrFail($id);
+        return view('admin.layanan.edit', compact('layanan'));
+    }
+
     public function update(Request $request, string $id)
     {
         $layanan = Layanan::findOrFail($id);
@@ -72,5 +78,22 @@ class LayananController extends Controller
         $layanan->update($validatedData);
 
         return redirect()->route('admin.layanan.index')->with('success', 'Layanan berhasil diperbarui.');
+    }
+
+    public function show(string $id)
+    {
+        $layanan = Layanan::findOrFail($id);
+        return view('admin.layanan.detail', compact('layanan'));
+    }
+
+    public function destroy(string $id)
+    {
+        $layanan = Layanan::findOrFail($id);
+        if ($layanan->ikon) {
+            Storage::disk('public')->delete($layanan->ikon);
+        }
+        $layanan->delete();
+
+        return redirect()->route('admin.layanan.index')->with('success', 'Layanan berhasil dihapus.');
     }
 }
