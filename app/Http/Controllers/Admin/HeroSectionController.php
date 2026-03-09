@@ -49,8 +49,8 @@ class HeroSectionController extends Controller
         $validatedData['lawyer_image'] = $request->file('lawyer_image')->store('hero', 'public');
     }
 
-    // PENTING: Buang 'bg_image' dari array sebelum simpan ke DB
-    unset($validatedData['bg_image']);
+    // Set default value for nullable fields
+    $validatedData['teks_tombol'] = $validatedData['teks_tombol'] ?? '';
 
     // Simpan/Update
     HeroSection::updateOrCreate(['id' => 1], $validatedData);
