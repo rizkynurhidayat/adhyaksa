@@ -22,30 +22,29 @@ class LayananController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'judul'             => 'required|string|max:255',
-            'slug'              => 'required|string|max:255|unique:layanans',
-            'ikon'              => 'nullable|image|mimes:jpeg,png,jpg,svg|max:2048',
-            'deskripsi_singkat' => 'required|string', // Pastikan name di HTML adalah deskripsi_singkat
-            'apa_itu'           => 'nullable|string',
-            'mengapa_butuh'     => 'nullable|string',
-            'keuntungan_1'      => 'nullable|string',
-            'keuntungan_2'      => 'nullable|string',
-            'is_active'         => 'nullable',
-            'urutan'            => 'nullable|integer',
-        ]);
+{
+    $validatedData = $request->validate([
+        'judul'             => 'required|string|max:255',
+        'slug'              => 'required|string|max:255|unique:layanans,slug',
+        'ikon'              => 'nullable|image|mimes:jpeg,png,jpg,svg|max:2048',
+        'deskripsi_singkat' => 'required',
+        'apa_itu'           => 'required',
+        'mengapa_butuh'     => 'nullable',
+        'keuntungan_1'      => 'nullable',
+        'persentase_kasus'  => 'nullable|numeric',
+    ]);
 
-        $validatedData['is_active'] = $request->has('is_active') ? 1 : 0;
+    // Beri nilai default jika persentase kosong
+    $validatedData['persentase_kasus'] = $request->persentase_kasus ?? 95;
 
-        if ($request->hasFile('ikon')) {
-            $validatedData['ikon'] = $request->file('ikon')->store('layanan', 'public');
-        }
-
-        Layanan::create($validatedData);
-
-        return redirect()->route('admin.layanan.index')->with('success', 'Layanan berhasil ditambahkan.');
+    if ($request->hasFile('ikon')) {
+        $validatedData['ikon'] = $request->file('ikon')->store('layanan', 'public');
     }
+
+    Layanan::create($validatedData);
+
+    return redirect()->route('admin.layanan.index')->with('success', 'Layanan berhasil ditambahkan.');
+}
 
     public function edit(string $id)
     {
@@ -59,7 +58,7 @@ class LayananController extends Controller
 
         $validatedData = $request->validate([
             'judul'             => 'required|string|max:255',
-            'slug'              => 'required|string|max:255|unique:layanans,slug,' . $id,
+            'slug'  => 'required|string|max:255|unique:layanans,slug',            
             'ikon'              => 'nullable|image|mimes:jpeg,png,jpg,svg|max:2048',
             'deskripsi_singkat' => 'required|string',
             'apa_itu'           => 'nullable|string',
@@ -85,10 +84,10 @@ class LayananController extends Controller
         return redirect()->route('admin.layanan.index')->with('success', 'Layanan berhasil diperbarui.');
     }
 
-    public function show(string $id)
+    public function show(string $slug)
     {
-        $layanan = Layanan::findOrFail($id);
-        return view('admin.layanan.detail', compact('layanan'));
+        $layanan = Layanan::where('slug', $slug)->firstOrFail();
+        return view('hukumbisnis', compact('layanan'));
     }
 
     public function destroy(string $id)

@@ -17,22 +17,16 @@ use App\Models\Layanan;
 
 Route::get('/', [HomeController::class, 'index']);
 
-    // Mengarahkan tombol "Lihat Detail" ke file desain elegan (hukumsengketa.blade.php, dll)
-    Route::get('/layanan/{slug}', function ($slug) {
+// Route Detail Layanan Dinamis
+// Di routes/web.php
+Route::get('/layanan/{slug}', function ($slug) {
+    // Cari datanya
+    $layanan = App\Models\Layanan::where('slug', $slug)->firstOrFail();
 
-    // Cari data di database
-    $layanan = Layanan::where('slug', $slug)->firstOrFail();
-    // Mengubah slug menjadi nama file (contoh: hukum-sengketa jadi hukumsengketa)
-    $viewName = str_replace('-', '', $slug);
-
-    // Jika filenya ada di folder views, tampilkan desain elegan
-    if (view()->exists($viewName)) {
-        return view($viewName, compact('layanan'));
-    }
-    
-    // Jika tidak ada file khusus, tampilkan detail standar admin
-    return view('admin.layanan.detail', compact('layanan'));
+    // SEMUA layanan (bisnis, makan, kontrak) akan pakai file ini:
+    return view('detail_layanan', compact('layanan'));
 })->name('layanan.detail');
+
 
 // Authentication Routes
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
