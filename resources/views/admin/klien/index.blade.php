@@ -66,5 +66,41 @@
             </div>
         </div>
     </div>
+    
+    {{-- Form Statistik Klien --}}
+    <div class="card shadow border-0 mt-4">
+        <div class="card-header bg-white py-3">
+            <h5 class="mb-0 fw-bold">Statistik Klien</h5>
+        </div>
+        <div class="card-body p-4">
+            <form action="{{ route('admin.klien.statistik.update') }}" method="POST">
+                @csrf
+                @method('PUT')
+                
+                <p class="text-muted mb-4">Angka-angka ini akan ditampilkan di bagian bawah Daftar Klien pada Halaman Utama.</p>
+
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <label class="form-label fw-bold">Klien Terlayani</label>
+                        <input type="text" name="klien_terlayani" class="form-control" value="{{ old('klien_terlayani', $statistik->klien_terlayani) }}" placeholder="Contoh: 100+" required>
+                    </div>
+                    
+                    <div class="col-md-4 mb-4">
+                        <label class="form-label fw-bold">Kasus Sukses</label>
+                        <input type="text" name="kasus_sukses" class="form-control" value="{{ old('kasus_sukses', $statistik->kasus_sukses) }}" placeholder="Contoh: 95%" required>
+                    </div>
+                    
+                    <div class="col-md-4 mb-4">
+                        <label class="form-label fw-bold">Tahun Pengalaman</label>
+                        <input type="text" name="tahun_pengalaman" class="form-control" value="{{ old('tahun_pengalaman', $statistik->tahun_pengalaman) }}" placeholder="Contoh: 12+" required>
+                    </div>
+                </div>
+
+                <div class="mt-4 border-top pt-3 text-end">
+                    <button type="submit" class="btn btn-primary px-5 shadow-sm">Simpan Statistik</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 @endsection

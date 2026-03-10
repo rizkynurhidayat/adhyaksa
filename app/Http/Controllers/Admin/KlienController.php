@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Klien;
+use App\Models\Statistik;
 use Illuminate\Support\Facades\Storage;
 
 class KlienController extends Controller
@@ -13,7 +14,15 @@ class KlienController extends Controller
     {
         // Urutkan berdasarkan kolom 'urutan' agar tampilan di user bisa diatur
         $kliens = Klien::orderBy('urutan', 'asc')->get();
-        return view('admin.klien.index', compact('kliens'));
+        
+        // Get the first record or create a new instance with default values
+        $statistik = Statistik::first() ?? new Statistik([
+            'klien_terlayani' => '100+',
+            'kasus_sukses' => '95%',
+            'tahun_pengalaman' => '12+',
+        ]);
+        
+        return view('admin.klien.index', compact('kliens', 'statistik'));
     }
 
     public function create()
@@ -90,5 +99,23 @@ class KlienController extends Controller
         $klien->delete();
 
         return redirect()->route('admin.klien.index')->with('success', 'Klien dihapus.');
+    }
+
+    public function updateStatistik(Request $request)
+    {
+        $validatedData = $request->validate([
+            'klien_terlayani' => 'required|string|max:255',
+            'kasus_sukses' => 'required|string|max:255',
+            'tahun_pengalaman' => 'required|string|max:255',
+        ]);
+
+        $statistik = Statistik::first();
+        if ($statistik) {
+            $statistik->update($validatedData);
+        } else {
+            Statistik::create($validatedData);
+        }
+
+        return redirect()->route('admin.klien.index')->with('success', 'Statistik berhasil diperbarui.');
     }
 }
