@@ -10,9 +10,9 @@ class Klien extends Model
         'nama',
         'logo',
         'website',
-        'button_pengalaman',
-        'button_sukses',
-        'button_terlayani',
+        'klien_terlayani',
+        'kasus_sukses',
+        'tahun_pengalaman',
         'is_active',
         'urutan',
     ];

@@ -29,15 +29,15 @@
                     <p class="fw-bold mb-3 text-primary">Statistik (Isi untuk menampilkan angka di landing page):</p>
                     <div class="col-md-4 mb-3">
                         <label class="form-label small fw-bold">Terlayani</label>
-                        <input type="text" name="button_terlayani" class="form-control" placeholder="Contoh: 100+">
+                        <input type="text" name="klien_terlayani" class="form-control" placeholder="Contoh: 100+">
                     </div>
                     <div class="col-md-4 mb-3">
                         <label class="form-label small fw-bold">Kasus Sukses</label>
-                        <input type="text" name="button_sukses" class="form-control" placeholder="Contoh: 95%">
+                        <input type="text" name="kasus_sukses" class="form-control" placeholder="Contoh: 95%">
                     </div>
                     <div class="col-md-4 mb-3">
                         <label class="form-label small fw-bold">Pengalaman</label>
-                        <input type="text" name="button_pengalaman" class="form-control" placeholder="Contoh: 12+">
+                        <input type="text" name="tahun_pengalaman" class="form-control" placeholder="Contoh: 12+">
                     </div>
                 </div>
 

@@ -43,12 +43,6 @@
                     <p class="mb-1"><strong>Deskripsi Singkat:</strong></p>
                     <p class="text-muted small mb-3">{{ $layanan->deskripsi_singkat }}</p>
 
-                    <p class="mb-2"><strong>Persentase Sukses:</strong></p>
-                    <div class="progress mb-3" style="height: 20px;">
-                        <div class="progress-bar bg-warning" role="progressbar" style="width: {{ $layanan->persentase_kasus }}%;" aria-valuenow="{{ $layanan->persentase_kasus }}" aria-valuemin="0" aria-valuemax="100">
-                            {{ $layanan->persentase_kasus }}%
-                        </div>
-                    </div>
                     
                     <p class="mb-2"><strong>Status:</strong></p>
                     <span class="badge {{ $layanan->is_active ? 'bg-success' : 'bg-danger' }} mb-4">

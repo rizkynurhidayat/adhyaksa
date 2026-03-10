@@ -11,7 +11,6 @@ class ProfilPendiri extends Model
         'position',
         'foto',
         'deskripsi',
-        'persentase_kasus',
         'tahun_pengalaman',
     ];
 }

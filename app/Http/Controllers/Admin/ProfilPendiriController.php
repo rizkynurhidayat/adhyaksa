@@ -27,7 +27,6 @@ class ProfilPendiriController extends Controller
             'position'         => 'nullable|string|max:255',
             'foto'             => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'deskripsi'        => 'required|string',
-            'persentase_kasus' => 'required|integer|min:0|max:100',
             'tahun_pengalaman' => 'required|integer|min:0',
         ]);
 

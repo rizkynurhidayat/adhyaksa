@@ -67,15 +67,11 @@
         <hr>
 
         <div class="row">
-            <div class="col-md-4 mb-3">
-                <label class="form-label">Persentase Kasus (%)</label>
-                <input type="number" name="persentase_kasus" class="form-control" value="{{ old('persentase_kasus', $layanan->persentase_kasus) }}">
-            </div>
-            <div class="col-md-4 mb-3">
+            <div class="col-md-6 mb-3">
                 <label class="form-label">Urutan Tampil</label>
                 <input type="number" name="urutan" class="form-control" value="{{ old('urutan', $layanan->urutan) }}">
             </div>
-            <div class="col-md-4 mb-3 d-flex align-items-end">
+            <div class="col-md-6 mb-3 d-flex align-items-end">
                 <div class="form-check mb-2">
                     <input class="form-check-input" type="checkbox" name="is_active" id="is_active" {{ $layanan->is_active ? 'checked' : '' }}>
                     <label class="form-check-label" for="is_active">Aktifkan Layanan</label>

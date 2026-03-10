@@ -99,10 +99,7 @@
                     </p>
 
                     <div class="founder-stats">
-                        <div class="stat-box gray-box">
-                            <span class="stat-number">{{ $profil->persentase_kasus ?? '95' }}%</span>
-                            <span class="stat-desc">Kasus Sukses</span>
-                        </div>
+
                         <div class="stat-box gold-box">
                             <span class="stat-number">{{ $profil->tahun_pengalaman ?? '12' }}+</span>
                             <span class="stat-desc">Tahun<br>Pengalaman</span>
@@ -131,7 +128,7 @@
                     <h3>{{ $layanan->judul }}</h3>
                     <p class="subtitle">{{ $layanan->deskripsi_singkat }}</p>
                     <div class="card-footer">
-                        <span class="tag">{{ $layanan->persentase_kasus ?? '95' }}% kasus tertangani</span>
+
                         <a href="{{ route('layanan.detail', $layanan->slug) }}" class="btn-detail">Lihat Detail</a>
                     </div>
                 </div>

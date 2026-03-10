@@ -55,7 +55,6 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::put('/kontak/{id}', [KontakController::class, 'update'])->name('kontak.update');
 
     // CRUD Resources (Multiple Data)
-    Route::put('/klien/statistik', [KlienController::class, 'updateStatistik'])->name('klien.statistik.update');
     Route::resource('layanan', LayananController::class);
     Route::resource('klien', KlienController::class);
     Route::resource('blog', BlogController::class);

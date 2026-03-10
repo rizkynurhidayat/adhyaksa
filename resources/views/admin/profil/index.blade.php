@@ -49,11 +49,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label class="form-label">Persentase Kasus Sukses (%)</label>
-                    <input type="number" name="persentase_kasus" class="form-control" value="{{ $profil->persentase_kasus ?? 95 }}" min="0" max="100" required>
-                </div>
-                <div class="col-md-6 mb-3">
+                <div class="col-md-12 mb-3">
                     <label class="form-label">Tahun Pengalaman</label>
                     <input type="number" name="tahun_pengalaman" class="form-control" value="{{ $profil->tahun_pengalaman ?? 12 }}" min="0" required>
                 </div>

@@ -22,7 +22,6 @@ return new class extends Migration
             // Kolom keuntungan dibuat terpisah (opsional/nullable)
             $table->text('keuntungan_1')->nullable();
             $table->text('keuntungan_2')->nullable();
-            $table->string('persentase_kasus')->default('95%');
             $table->boolean('is_active')->default(true);
             $table->integer('urutan')->default(0);
             $table->timestamps();

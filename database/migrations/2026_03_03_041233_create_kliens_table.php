@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('nama');
             $table->string('logo');
             $table->string('website')->nullable();
-            $table->string('button_pengalaman');
-            $table->string('button_sukses');
-            $table->string('button_terlayani');
+            $table->string('klien_terlayani')->nullable();
+            $table->string('kasus_sukses')->nullable();
+            $table->string('tahun_pengalaman')->nullable();
             $table->boolean('is_active')->default(true);
             $table->integer('urutan')->default(0);
             $table->timestamps();
