@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\KontakController;
 use App\Http\Controllers\Admin\LayananController;
 use App\Http\Controllers\Admin\KlienController; 
 use App\Http\Controllers\Admin\BlogController; 
+use App\Http\Controllers\Admin\StatistikController;
 use App\Models\HeroSection; 
 use App\Models\ProfilPendiri;
 use App\Models\Layanan;
@@ -50,6 +51,10 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     // Kontak (Single Data - Gunakan PUT)
     Route::get('/kontak', [KontakController::class, 'index'])->name('kontak.index');
     Route::put('/kontak/{id}', [KontakController::class, 'update'])->name('kontak.update');
+
+    // Statistik (Single Data - Gunakan PUT)
+    Route::get('/statistik', [StatistikController::class, 'index'])->name('statistik.index');
+    Route::put('/statistik', [StatistikController::class, 'update'])->name('statistik.update');
 
     // CRUD Resources (Multiple Data)
     Route::resource('layanan', LayananController::class);

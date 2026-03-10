@@ -28,9 +28,6 @@ class KlienController extends Controller
             'nama'              => 'required|string|max:255',
             'logo'              => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'website'           => 'nullable|url',
-            'klien_terlayani'   => 'nullable|string',
-            'kasus_sukses'     => 'nullable|string',
-            'tahun_pengalaman' => 'nullable|string',
             'is_active'         => 'boolean',
             'urutan'            => 'nullable|integer',
         ]);
@@ -61,9 +58,6 @@ class KlienController extends Controller
             'nama'              => 'required|string|max:255',
             'logo'              => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'website'           => 'nullable|url',
-            'klien_terlayani'   => 'nullable|string',
-            'kasus_sukses'     => 'nullable|string',
-            'tahun_pengalaman' => 'nullable|string',
             'is_active'         => 'boolean',
             'urutan'            => 'nullable|integer',
         ]);

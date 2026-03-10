@@ -28,9 +28,6 @@
                         <tr>
                             <th class="ps-4">Logo</th>
                             <th>Nama Klien (Internal)</th>
-                            <th>Terlayani</th>
-                            <th>Sukses</th>
-                            <th>Pengalaman</th>
                             <th>Urutan</th>
                             <th>Status</th>
                             <th class="text-end pe-4">Aksi</th>
@@ -43,9 +40,6 @@
                                 <img src="{{ asset('storage/' . $k->logo) }}" width="60" class="rounded border shadow-sm p-1">
                             </td>
                             <td class="fw-bold text-secondary">{{ $k->nama }}</td>
-                            <td>{{ $k->klien_terlayani ?? '-' }}</td>
-                            <td>{{ $k->kasus_sukses ?? '-' }}</td>
-                            <td>{{ $k->tahun_pengalaman ?? '-' }}</td>
                             <td>{{ $k->urutan ?? '-' }}</td>
                             <td>
                                 <span class="badge {{ $k->is_active ? 'bg-success' : 'bg-secondary' }}">
