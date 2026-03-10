@@ -25,7 +25,7 @@
                     <th width="80">Ikon</th>
                     <th>Judul Layanan</th>
                     <th>Status</th>
-                    <th width="100">Urutan</th>
+                    <th>Persentase</th> <th width="100">Urutan</th>
                     <th width="250" class="text-center">Aksi</th>
                 </tr>
             </thead>
@@ -48,6 +48,11 @@
                     <td>
                         <span class="badge {{ $layanan->is_active ? 'bg-success' : 'bg-danger' }}">
                             {{ $layanan->is_active ? 'Aktif' : 'Non-aktif' }}
+                        </span>
+                    </td>
+                    <td>
+                        <span class="badge bg-info text-dark">
+                            {{ $layanan->persentase_kasus ?? '0%' }}
                         </span>
                     </td>
                     <td>
@@ -75,7 +80,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="5" class="text-center py-4 text-muted">
+                    <td colspan="6" class="text-center py-4 text-muted">
                         Belum ada data layanan. Klik tombol <strong>+ Tambah Layanan</strong> untuk memulai.
                     </td>
                 </tr>

@@ -51,6 +51,11 @@
                         <textarea name="alamat" class="form-control" rows="3" required>{{ old('alamat', $kontak->alamat) }}</textarea>
                     </div>
 
+                    <div class="col-md-12 mb-3">
+                        <label class="fw-bold">Link Google Maps (Opsional)</label>
+                        <input type="text" name="link_google_maps" class="form-control" 
+                               value="{{ old('link_google_maps', $kontak->link_google_maps) }}">
+                    </div>
                 </div>
 
                 <div class="text-right mt-3">
@@ -61,4 +66,22 @@
     </div>
 
 </div>
+
+<style>
+    .map-responsive {
+        overflow: hidden;
+        padding-bottom: 30%;
+        position: relative;
+        height: 0;
+    }
+    .map-responsive iframe {
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        border: 0;
+        border-radius: 8px;
+    }
+</style>
 @endsection

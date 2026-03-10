@@ -15,6 +15,7 @@ class Layanan extends Model
         'mengapa_butuh',
         'keuntungan_1',
         'keuntungan_2',
+        'persentase_kasus',
         'is_active',
         'urutan',
     ];

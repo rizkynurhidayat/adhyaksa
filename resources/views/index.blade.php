@@ -100,6 +100,11 @@
 
                     <div class="founder-stats">
 
+                        <div class="stat-box gray-box">
+                            <span class="stat-number">{{ $profil->kasus_sukses ?? '95' }}+</span>
+                            <span class="stat-desc">Kasus<br>Berhasil</span>
+                        </div>
+
                         <div class="stat-box gold-box">
                             <span class="stat-number">{{ $profil->tahun_pengalaman ?? '12' }}+</span>
                             <span class="stat-desc">Tahun<br>Pengalaman</span>
@@ -128,7 +133,7 @@
                     <h3>{{ $layanan->judul }}</h3>
                     <p class="subtitle">{{ $layanan->deskripsi_singkat }}</p>
                     <div class="card-footer">
-
+                        <span class="tag">{{ $layanan->persentase_kasus ?? '95' }}% kasus tertangani</span>
                         <a href="{{ route('layanan.detail', $layanan->slug) }}" class="btn-detail">Lihat Detail</a>
                     </div>
                 </div>
@@ -318,7 +323,9 @@
         </div>
     </div>
 
-    {{-- Removed map container --}}
+        <div class="map-container">
+             {{!! $kontak->link_google_maps ?? '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31682.214506683496!2d109.10645432552936!3d-6.976630553532447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6fbeef3f898a49%3A0x9ab741554fbee2ec!2sNotaris%20Yulistya%20Adi%20Nugraha.%2C%20S.H.M.Kn!5e0!3m2!1sid!2sid!4v1768187812085!5m2!1sid!2sid" width="900" height="450" style="border:0;"  allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>' !!}}
+        </div>
 
     <div class="footer-bottom">
         <div class="container bottom-content">

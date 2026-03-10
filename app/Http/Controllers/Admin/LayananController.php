@@ -66,6 +66,7 @@ class LayananController extends Controller
             'mengapa_butuh'     => 'nullable|string',
             'keuntungan_1'      => 'nullable|string',
             'keuntungan_2'      => 'nullable|string',
+            'persentase_kasus'    => 'nullable|string',
             'is_active'         => 'nullable',
             'urutan'            => 'nullable|integer',
         ]);

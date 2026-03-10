@@ -50,16 +50,28 @@
 
         <div class="row mb-4">
             <label class="form-label d-block">Poin-Poin Keuntungan (Max 3)</label>
-            <div class="col-md-4">
+            <div class="col-md-4 mb-2">
                 <input type="text" name="keuntungan_1" class="form-control" value="{{ old('keuntungan_1') }}" placeholder="Keuntungan 1">
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 mb-2">
                 <input type="text" name="keuntungan_2" class="form-control" value="{{ old('keuntungan_2') }}" placeholder="Keuntungan 2">
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 mb-2">
                 <input type="text" name="keuntungan_3" class="form-control" value="{{ old('keuntungan_3') }}" placeholder="Keuntungan 3">
             </div>
         </div>
+
+        <div class="mb-4">
+            <label class="form-label">Persentase Kasus Sukses</label>
+            <div class="input-group" style="max-width: 200px;">
+                <input type="text" name="persentase_kasus" class="form-control @error('persentase_kasus') is-invalid @enderror" 
+                       value="{{ old('persentase_kasus') }}" placeholder="Contoh: 98">
+                <span class="input-group-text">%</span>
+            </div>
+            @error('persentase_kasus') <div class="text-danger small">{{ $message }}</div> @enderror
+            <small class="text-muted">Isi angka saja.</small>
+        </div>
+
         <hr>
 
         <div class="row">

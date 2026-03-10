@@ -53,7 +53,7 @@
             <textarea name="mengapa_butuh" class="form-control" rows="4">{{ old('mengapa_butuh', $layanan->mengapa_butuh) }}</textarea>
         </div>
 
-        <div class="row mb-4">
+        <div class="row mb-3">
             <label class="form-label d-block">Poin-Poin Keuntungan (Max 2)</label>
             <div class="col-md-6">
                 <label class="small text-muted">Keuntungan 1</label>
@@ -64,6 +64,17 @@
                 <input type="text" name="keuntungan_2" class="form-control" value="{{ old('keuntungan_2', $layanan->keuntungan_2) }}">
             </div>
         </div>
+
+        <div class="mb-4">
+            <label class="form-label">Persentase Kasus Sukses</label>
+            <div class="input-group" style="max-width: 200px;">
+                <input type="text" name="persentase_kasus" class="form-control @error('persentase_kasus') is-invalid @enderror" 
+                       value="{{ old('persentase_kasus', $layanan->persentase_kasus) }}" placeholder="Contoh: 95">
+                <span class="input-group-text">%</span>
+            </div>
+            <small class="text-muted">Isi angka saja (misal: 95).</small>
+        </div>
+        
         <hr>
 
         <div class="row">

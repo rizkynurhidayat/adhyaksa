@@ -54,6 +54,12 @@
                     <input type="number" name="tahun_pengalaman" class="form-control" value="{{ $profil->tahun_pengalaman ?? 12 }}" min="0" required>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label class="form-label">Kasus Berhasil</label>
+                    <input type="number" name="kasus_sukses" class="form-control" value="{{ $profil->kasus_sukses ?? 95 }}" min="0" required>
+                </div>
+            </div>
 
             <div class="mb-3">
                 <label class="form-label">Foto Pendiri</label>
