@@ -48,10 +48,8 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/profil', [ProfilPendiriController::class, 'index'])->name('profil.index');
     Route::put('/profil', [ProfilPendiriController::class, 'update'])->name('profil.update');
 
-    // Kontak (Single Data - Gunakan PUT)
-    Route::get('/kontak', [KontakController::class, 'index'])->name('kontak.index');
-    Route::put('/kontak/{id}', [KontakController::class, 'update'])->name('kontak.update');
-
+    // Kontak 
+    Route::resource('kontak', KontakController::class);
     // Statistik (Single Data - Gunakan PUT)
     Route::get('/statistik', [StatistikController::class, 'index'])->name('statistik.index');
     Route::put('/statistik', [StatistikController::class, 'update'])->name('statistik.update');

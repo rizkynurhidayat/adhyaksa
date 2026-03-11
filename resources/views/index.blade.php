@@ -282,28 +282,6 @@
 
     <!--================== hubungi kami ==================-->
 
-   @php
-    // --- 1. Logika Pembersihan Link WhatsApp ---
-    // Kita ambil link dari input 'wa_1_link' yang diisi admin
-    $wa_raw = $kontak->wa_1_link ?? '6288239627371'; 
-    $wa_link1 = preg_replace('/[^0-9]/', '', $wa_raw);
-    
-    if (str_starts_with($wa_link1, '0')) { 
-        $wa_link1 = '62' . substr($wa_link1, 1); 
-    }
-
-    // --- 2. Logika Link Google Maps ---
-    $mapUrlKlik = '#';
-    if ($kontak?->link_google_maps) {
-        if (str_contains($kontak->link_google_maps, '<iframe')) {
-            preg_match('/src="([^"]+)"/', $kontak->link_google_maps, $match);
-            $mapUrlKlik = $match[1] ?? '#';
-        } else {
-            $mapUrlKlik = $kontak->link_google_maps;
-        }
-    }
-@endphp
-
 <footer id="hubungikami" class="footer-section">
     <div class="container">
         <div class="footer-header">
@@ -317,42 +295,64 @@
         <div class="contact-grid">
             <div class="contact-card">
                 <div class="icon-box">
-                    <img src="{{ asset('image/icons8-gmail-48.png') }}">
+                    <img src="{{ asset('image/icons8-gmail-48.png') }}" alt="Email">
                 </div>
                 <h3>Email Kami</h3>
-                {{-- Link mengambil dari email_1_link, teks dari email_1_judul --}}
-                <a href="{{ $kontak->email_1_link ?? 'mailto:adhyaksapartners@gmail.com' }}">
-                    {{ $kontak->email_1_judul ?? 'adhyaksapartners@gmail.com' }}
-                </a>
+                @php $hasEmail = false; @endphp
+                @foreach($kontaks->where('jenis', 'email') as $email)
+                    <a href="{{ $email->url_tautan }}">
+                        {{ $email->judul_tampilan }}
+                    </a><br>
+                    @php $hasEmail = true; @endphp
+                @endforeach
+                @if(!$hasEmail)
+                    <a href="mailto:adhyaksapartners@gmail.com">adhyaksapartners@gmail.com</a>
+                @endif
             </div>
 
             <div class="contact-card">
                 <div class="icon-box">
-                    <img src="{{ asset('image/wa.png') }}">
+                    <img src="{{ asset('image/wa.png') }}" alt="WhatsApp">
                 </div>
                 <h3>WhatsApp</h3>
-                {{-- Link menggunakan nomor yang sudah dibersihkan --}}
-                <a href="https://wa.me/{{ $wa_link1 }}" target="_blank">
-                    {{ $kontak->wa_1_judul ?? '+62 882-3962-7371' }}
-                </a>
+                @php $hasWA = false; @endphp
+                @foreach($kontaks->where('jenis', 'whatsapp') as $wa)
+                    <a href="{{ $wa->url_tautan }}" target="_blank">
+                        {{ $wa->judul_tampilan }}
+                    </a><br>
+                    @php $hasWA = true; @endphp
+                @endforeach
+                @if(!$hasWA)
+                    <a href="https://wa.me/6288239627371" target="_blank">+62 882-3962-7371</a>
+                @endif
             </div>
 
             <div class="contact-card">
                 <div class="icon-box">
-                    <img src="{{ asset('image/google-maps.png') }}">
+                    <img src="{{ asset('image/google-maps.png') }}" alt="Lokasi">
                 </div>
                 <h3>Lokasi Kantor</h3>
-                {{-- Nama alamat mengambil dari alamat_judul --}}
-                <a href="{{ $mapUrlKlik }}" target="_blank">
-                    {{ $kontak->alamat_judul ?? 'Jl. KH. Agus Salim, Kudaile, Kec. Slawi, Kab. Tegal' }}
-                </a>
+                @php $hasLokasi = false; @endphp
+                @foreach($kontaks->where('jenis', 'lokasi') as $lokasi)
+                    <a href="{{ $lokasi->url_tautan }}" target="_blank">
+                        {{ $lokasi->judul_tampilan }}
+                    </a><br>
+                    @php $hasLokasi = true; @endphp
+                @endforeach
+                @if(!$hasLokasi)
+                    <a href="#" target="_blank">Jl. KH. Agus Salim, Kudaile, Kec. Slawi, Kab. Tegal</a>
+                @endif
             </div>
         </div>
     </div>
 
     <div class="map-container">
-        {{-- Perbaikan: Gunakan {!! !!} saja, jangan {{!! !!}} --}}
-        {!! $kontak->link_google_maps ?? '<iframe src="https://www.google.com/maps/embed?pb=..." width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>' !!}
+        @php $peta = $kontaks->where('jenis', 'iframe_peta')->first(); @endphp
+        @if($peta)
+            {!! $peta->url_tautan !!}
+        @else
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31682.214506683496!2d109.10645432552936!3d-6.976630553532447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6fbeef3f898a49%3A0x9ab741554fbee2ec!2sNotaris%20Yulistya%20Adi%20Nugraha.%2C%20S.H.M.Kn!5e0!3m2!1sid!2sid!4v1768187812085!5m2!1sid!2sid" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        @endif
     </div>
 
     <div class="footer-bottom">

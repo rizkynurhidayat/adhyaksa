@@ -26,7 +26,7 @@ class HomeController extends Controller
         $successRate = $statistik->kasus_sukses ?? '95%'; 
         $experienceYears = $statistik->tahun_pengalaman ?? '12+'; 
         $blogs = Blog::latest()->take(3)->get();
-        $kontak = Kontak::first(); new Kontak(); // PERBAIKAN: Jika data null, buat objek baru agar Blade tidak error (Trying to access property on null)
-        return view('index', compact('HeroSection', 'profil', 'layanans', 'clients', 'clientCount', 'successRate', 'experienceYears', 'blogs', 'kontak'));
+        $kontaks = Kontak::all(); 
+        return view('index', compact('HeroSection', 'profil', 'layanans', 'clients', 'clientCount', 'successRate', 'experienceYears', 'blogs', 'kontaks'));
     }
 }
