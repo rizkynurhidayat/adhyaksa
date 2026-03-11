@@ -13,6 +13,7 @@
 
 
     <!-- ================== navbar ==================-->
+     
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
@@ -280,52 +281,79 @@
     </section>
 
     <!--================== hubungi kami ==================-->
-    <footer id="hubungikami" class="footer-section">
+
+   @php
+    // --- 1. Logika Pembersihan Link WhatsApp ---
+    // Kita ambil link dari input 'wa_1_link' yang diisi admin
+    $wa_raw = $kontak->wa_1_link ?? '6288239627371'; 
+    $wa_link1 = preg_replace('/[^0-9]/', '', $wa_raw);
+    
+    if (str_starts_with($wa_link1, '0')) { 
+        $wa_link1 = '62' . substr($wa_link1, 1); 
+    }
+
+    // --- 2. Logika Link Google Maps ---
+    $mapUrlKlik = '#';
+    if ($kontak?->link_google_maps) {
+        if (str_contains($kontak->link_google_maps, '<iframe')) {
+            preg_match('/src="([^"]+)"/', $kontak->link_google_maps, $match);
+            $mapUrlKlik = $match[1] ?? '#';
+        } else {
+            $mapUrlKlik = $kontak->link_google_maps;
+        }
+    }
+@endphp
+
+<footer id="hubungikami" class="footer-section">
     <div class="container">
         <div class="footer-header">
             <h2>Hubungi Kami</h2>
             <div class="underline-center">
                 <i class="fas fa-balance-scale"></i>
             </div>
-            <p>Kami siap menjadi mitra hukum Anda dalam menghadapi berbagai persoalan hukum secara profesional dan terpercaya.</p>
+            <p>Kami siap menjadi mitra hukum Anda secara profesional dan terpercaya.</p>
         </div>
 
         <div class="contact-grid">
             <div class="contact-card">
                 <div class="icon-box">
-                    <img src="image/icons8-gmail-48.png">
+                    <img src="{{ asset('image/icons8-gmail-48.png') }}">
                 </div>
                 <h3>Email Kami</h3>
-                <a href="mailto:{{ $kontak->email_1 ?? 'adhyaksapartners@gmail.com' }}">{{ $kontak->email_1 ?? 'adhyaksapartners@gmail.com' }}</a>
-                @if($kontak?->email_2)
-                <a href="mailto:{{ $kontak->email_2 ?? 'mitrahukum_anda@gmail.com' }}">{{ $kontak->email_2 ?? 'mitrahukum_anda@gmail.com' }}</a>
-                @endif
+                {{-- Link mengambil dari email_1_link, teks dari email_1_judul --}}
+                <a href="{{ $kontak->email_1_link ?? 'mailto:adhyaksapartners@gmail.com' }}">
+                    {{ $kontak->email_1_judul ?? 'adhyaksapartners@gmail.com' }}
+                </a>
             </div>
 
             <div class="contact-card">
                 <div class="icon-box">
-                    <img src="image/wa.png">
+                    <img src="{{ asset('image/wa.png') }}">
                 </div>
                 <h3>WhatsApp</h3>
-                <a href="https://wa.me/{{ $kontak?->wa_1 ?? '6288239627371' }}" target="_blank">+{{ $kontak->wa_1 ?? '62 882-3962-7371' }}</a>
-                @if($kontak?->wa_2)
-                <a href="https://wa.me/{{ $kontak->wa_2 ?? '6285779524825' }}" target="_blank">+{{ $kontak->wa_2 ?? '62 857-7952-4825' }}</a>
-                @endif
+                {{-- Link menggunakan nomor yang sudah dibersihkan --}}
+                <a href="https://wa.me/{{ $wa_link1 }}" target="_blank">
+                    {{ $kontak->wa_1_judul ?? '+62 882-3962-7371' }}
+                </a>
             </div>
 
             <div class="contact-card">
                 <div class="icon-box">
-                    <img src="image/google-maps.png">
+                    <img src="{{ asset('image/google-maps.png') }}">
                 </div>
                 <h3>Lokasi Kantor</h3>
-                <a href="#" target="_blank">{{ $kontak->alamat ?? 'Jl. KH. Agus Salim, Kudaile, Kec. Slawi, Kab. Tegal 524135' }}</a>
+                {{-- Nama alamat mengambil dari alamat_judul --}}
+                <a href="{{ $mapUrlKlik }}" target="_blank">
+                    {{ $kontak->alamat_judul ?? 'Jl. KH. Agus Salim, Kudaile, Kec. Slawi, Kab. Tegal' }}
+                </a>
             </div>
         </div>
     </div>
 
-        <div class="map-container">
-             {{!! $kontak->link_google_maps ?? '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31682.214506683496!2d109.10645432552936!3d-6.976630553532447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6fbeef3f898a49%3A0x9ab741554fbee2ec!2sNotaris%20Yulistya%20Adi%20Nugraha.%2C%20S.H.M.Kn!5e0!3m2!1sid!2sid!4v1768187812085!5m2!1sid!2sid" width="900" height="450" style="border:0;"  allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>' !!}}
-        </div>
+    <div class="map-container">
+        {{-- Perbaikan: Gunakan {!! !!} saja, jangan {{!! !!}} --}}
+        {!! $kontak->link_google_maps ?? '<iframe src="https://www.google.com/maps/embed?pb=..." width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>' !!}
+    </div>
 
     <div class="footer-bottom">
         <div class="container bottom-content">

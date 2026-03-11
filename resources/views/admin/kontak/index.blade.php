@@ -1,22 +1,10 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Kelola Kontak & Lokasi')
-
 @section('content')
 <div class="container-fluid">
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Pengaturan Kontak & Lokasi</h1>
-    </div>
-
-    @if(session('success'))
-        <div class="alert alert-success border-left-success shadow-sm">
-            {{ session('success') }}
-        </div>
-    @endif
-
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Informasi Kontak Perusahaan</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Pengaturan Kontak Per Aplikasi</h6>
         </div>
         <div class="card-body">
             <form action="{{ route('admin.kontak.update', $kontak->id ?? 0) }}" method="POST">
@@ -24,64 +12,54 @@
                 @method('PUT')
 
                 <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label class="fw-bold">Email Utama</label>
-                        <input type="email" name="email_1" class="form-control" 
-                               value="{{ old('email_1', $kontak->email_1) }}" required>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="fw-bold">Email Cadangan (Opsional)</label>
-                        <input type="email" name="email_2" class="form-control" 
-                               value="{{ old('email_2', $kontak->email_2) }}">
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label class="fw-bold">WhatsApp 1 (Contoh: +62 8xx)</label>
-                        <input type="text" name="wa_1" class="form-control" 
-                               value="{{ old('wa_1', $kontak->wa_1) }}" required>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="fw-bold">WhatsApp 2 (Opsional)</label>
-                        <input type="text" name="wa_2" class="form-control" 
-                               value="{{ old('wa_2', $kontak->wa_2) }}">
+                    <div class="col-md-6 mb-4">
+                        <div class="border p-3 rounded shadow-sm bg-light">
+                            <label class="fw-bold text-primary"><i class="fas fa-envelope"></i> GMAIL</label>
+                            <div class="mb-2">
+                                <label class="small">Nama Akun (Judul)</label>
+                                <input type="text" name="email_1_judul" class="form-control" value="{{ old('email_1_judul', $kontak->email_1_judul) }}" placeholder="Contoh: adminnya@gmail.com">
+                            </div>
+                            <div>
+                                <label class="small">Link URL Gmail</label>
+                                <input type="text" name="email_1_link" class="form-control" value="{{ old('email_1_link', $kontak->email_1_link) }}" placeholder="https://mail.google.com/mail/?view=cm&fs=1&to=...">
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="col-md-12 mb-3">
-                        <label class="fw-bold">Alamat Lengkap Kantor</label>
-                        <textarea name="alamat" class="form-control" rows="3" required>{{ old('alamat', $kontak->alamat) }}</textarea>
+                    <div class="col-md-6 mb-4">
+                        <div class="border p-3 rounded shadow-sm bg-light">
+                            <label class="fw-bold text-success"><i class="fab fa-whatsapp"></i> WHATSAPP</label>
+                            <div class="mb-2">
+                                <label class="small">Judul Tampilan</label>
+                                <input type="text" name="wa_1_judul" class="form-control" value="{{ old('wa_1_judul', $kontak->wa_1_judul) }}" placeholder="Contoh: Chat Admin">
+                            </div>
+                            <div>
+                                <label class="small">Link URL WhatsApp</label>
+                                <input type="text" name="wa_1_link" class="form-control" value="{{ old('wa_1_link', $kontak->wa_1_link) }}" placeholder="https://wa.me/628xxx">
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="col-md-12 mb-3">
-                        <label class="fw-bold">Link Google Maps (Opsional)</label>
-                        <input type="text" name="link_google_maps" class="form-control" 
-                               value="{{ old('link_google_maps', $kontak->link_google_maps) }}">
+                    <div class="col-md-12">
+                        <div class="border p-3 rounded shadow-sm bg-light">
+                            <label class="fw-bold text-danger"><i class="fas fa-map-marker-alt"></i> GOOGLE MAPS</label>
+                            <div class="mb-2">
+                                <label class="small">Nama Alamat (Judul)</label>
+                                <textarea name="alamat_judul" class="form-control" rows="2" placeholder="Masukkan alamat lengkap">{{ old('alamat_judul', $kontak->alamat_judul) }}</textarea>
+                            </div>
+                            <div>
+                                <label class="small">Link URL Google Maps</label>
+                                <input type="text" name="link_google_maps" class="form-control" value="{{ old('link_google_maps', $kontak->link_google_maps) }}" placeholder="https://goo.gl/maps/...">
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="text-right mt-3">
-                    <button type="submit" class="btn btn-primary px-5 shadow-sm">Simpan Perubahan</button>
+                <div class="text-right mt-4">
+                    <button type="submit" class="btn btn-primary px-5">Simpan Perubahan</button>
                 </div>
             </form>
         </div>
     </div>
-
 </div>
-
-<style>
-    .map-responsive {
-        overflow: hidden;
-        padding-bottom: 30%;
-        position: relative;
-        height: 0;
-    }
-    .map-responsive iframe {
-        left: 0;
-        top: 0;
-        height: 100%;
-        width: 100%;
-        position: absolute;
-        border: 0;
-        border-radius: 8px;
-    }
-</style>
 @endsection

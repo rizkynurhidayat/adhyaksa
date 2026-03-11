@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('kontaks', function (Blueprint $table) {
             $table->id();
-            $table->string('email_1');
-            $table->string('email_2')->nullable(); // Opsional
-            $table->string('wa_1');
-            $table->string('wa_2')->nullable();    // Opsional
+            $table->string('email_1_judul'); // Judul untuk email_1
+            $table->string('email_1_link');  // Link URL untuk email_1
+            $table->string('wa_1_judul')->nullable()    ; // Judul untuk wa_1
+            $table->string('wa_1_link')->nullable();     // Link URL untuk wa_1
             $table->text('alamat');
             $table->text('link_google_maps'); // Link URL (https://maps.google.com
             $table->timestamps();

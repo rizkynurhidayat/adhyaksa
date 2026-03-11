@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Kontak extends Model
 {
     protected $fillable = [
-    'email_1',
-    'email_2', // Opsional
-    'wa_1',
-    'wa_2',    // Opsional
+    'email_1_judul', // Judul untuk email_1
+    'email_1_link',  // Link URL untuk email_1 (mailto:...)
+    'wa_1_judul',
+    'wa_1_link',
     'alamat',
     'link_google_maps', // Link URL (https://maps.google.com/...)
 ];

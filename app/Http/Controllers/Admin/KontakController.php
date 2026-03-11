@@ -19,12 +19,12 @@ class KontakController extends Controller
     {
         // VALIDASI DATA
         $validatedData = $request->validate([
-            'email_1'          => 'required|email|max:255',
-            'email_2'          => 'nullable|email|max:255',
-            'wa_1'             => 'required|string|max:50',
-            'wa_2'             => 'nullable|string|max:50',
-            'alamat'           => 'required|string',
-            'link_google_maps' => 'nullable|string', 
+            'email_1_judul'          => 'required|email|max:255',
+            'email_1_link'           => 'required|url|max:255',
+            'wa_1_judul'             => 'required|string|max:50',
+            'wa_1_link'              => 'required|url|max:255',
+            'alamat'                 => 'required|string',
+            'link_google_maps'       => 'nullable|string', 
         ]);
 
         // Cari data berdasarkan ID, jika tidak ada (setelah migrate:fresh), maka buat baru
