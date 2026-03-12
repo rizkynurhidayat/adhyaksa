@@ -46,13 +46,18 @@
         </section>
 
         <div class="footer-action">
-            <button class="btn-contact">Hubungi Kami</button>
+            <a href="{{ url('/') }}#hubungikami" class="btn-contact" style="text-decoration: none; display: inline-block;">Hubungi Kami</a>        
         </div>
     </div>
-    <a href="https://wa.me" class="wa-float" target="_blank">
-        <img src="image/wa.png" alt="">
+
+    @php $hasWA = false; @endphp
+    @foreach($kontaks->where('jenis', 'whatsapp') as $wa)
+    <a href="{{ $wa->url_tautan }}" class="wa-float" target="_blank">
+        <img src="{{ asset('image/wa.png') }}" alt="">
         <span>Chat Gratis 15 Menit</span>
     </a>
+    @php $hasWA = true; @endphp
+    @endforeach
 
 </body>
 </html>

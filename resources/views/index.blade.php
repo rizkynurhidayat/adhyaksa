@@ -40,11 +40,14 @@
             </div>
         </div>
     </nav>
-
-    <a href="https://wa.me" class="wa-float" target="_blank">
+    @php $hasWA = false; @endphp
+                @foreach($kontaks->where('jenis', 'whatsapp') as $wa)
+    <a href="{{ $wa->url_tautan }}" class="wa-float" target="_blank">
         <img src="image/wa.png" alt="">
         <span>Chat Gratis 15 Menit</span>
     </a>
+    @php $hasWA = true; @endphp
+                @endforeach
     
 
     <!--================== Beranda  ==================-->
@@ -168,7 +171,7 @@
             <div class="layanan-bottom">
                 <p>Kami menyediakan layanan konsultasi hukum profesional yang berfokus pada <br>
                     ketepatan, kerahasiaan, dan solusi terbaik untuk setiap permasalahan hukum Anda.</p>
-                <a href="#" class="btn-konsultasi-large">Konsultasi</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScMLys1zr-66y0z_Vic4mXvhJWDy6JvxNRlsQv9KHw44BmXig/viewform" class="btn-konsultasi-large">Konsultasi</a>
             </div>
         </div>
     </section>
@@ -276,7 +279,7 @@
                 <p>Butuh pendampingan hukum yang tepat?<br>
                     Konsultasikan permasalahan hukum Anda dengan tim ahli kami.
                 </p>
-                <a href="#" class="btn-hubungi">Hubungi Kami</a>
+                <a href="#hubungikami" class="btn-hubungi">Hubungi Kami</a>
             </div>
         </div>
     </section>
@@ -423,5 +426,20 @@
     </footer> -->
     <!--================== pemanggilan js ==================-->
     <script src="{{ asset('script.js') }}"></script>
+    <script>
+    // Fungsi ini berjalan otomatis saat halaman selesai loading
+    window.addEventListener('load', function() {
+        // Cek apakah di alamat web ada tulisan #hubungikami
+        if (window.location.hash === '#hubungikami') {
+            const footer = document.getElementById('hubungikami');
+            if (footer) {
+                // Beri jeda 300ms agar browser tenang dulu, baru scroll ke bawah
+                setTimeout(() => {
+                    footer.scrollIntoView({ behavior: 'smooth' });
+                }, 300); 
+            }
+        }
+    });
+</script>
 </body>
 </html>

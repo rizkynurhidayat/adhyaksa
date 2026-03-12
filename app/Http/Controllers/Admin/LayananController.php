@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Layanan;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Models\Kontak;
 
 class LayananController extends Controller
 {
@@ -88,7 +89,8 @@ class LayananController extends Controller
     public function show(string $slug)
     {
         $layanan = Layanan::where('slug', $slug)->firstOrFail();
-        return view('hukumbisnis', compact('layanan'));
+        $kontaks = Kontak::all();
+        return view('hukumbisnis', compact('layanan', 'kontaks'));
     }
 
     public function destroy(string $id)

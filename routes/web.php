@@ -15,19 +15,21 @@ use App\Models\Klien;
 use App\Models\Blog;
 use App\Models\Layanan as LayananModel;
 use App\Models\ProfilPendiri;
-
+use App\Models\Kontak;
 // Landing Page Routes (Public)
-
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Route Detail Layanan Dinamis
-// Di routes/web.php
+
 Route::get('/layanan/{slug}', function ($slug) {
-    // Cari datanya
+    // 1. Cari data layanan berdasarkan slug
     $layanan = App\Models\Layanan::where('slug', $slug)->firstOrFail();
 
-    // SEMUA layanan (bisnis, makan, kontrak) akan pakai file ini:
-    return view('detail_layanan', compact('layanan'));
+    // 2. Ambil data kontak agar variabel $kontaks tersedia di view
+    $kontaks = App\Models\Kontak::all(); 
+
+    // 3. Kirim kedua variabel ke view
+    return view('detail_layanan', compact('layanan', 'kontaks'));
 })->name('layanan.detail');
 
 
