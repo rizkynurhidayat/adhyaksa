@@ -31,6 +31,7 @@ class LayananController extends Controller
         'apa_itu'           => 'required',
         'mengapa_butuh'     => 'nullable',
         'keuntungan_1'      => 'nullable',
+        'keuntungan_2'      => 'nullable',
         'persentase_kasus'  => 'nullable|numeric',
     ]);
 

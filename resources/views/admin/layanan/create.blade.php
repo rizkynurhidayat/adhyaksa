@@ -56,9 +56,6 @@
             <div class="col-md-4 mb-2">
                 <input type="text" name="keuntungan_2" class="form-control" value="{{ old('keuntungan_2') }}" placeholder="Keuntungan 2">
             </div>
-            <div class="col-md-4 mb-2">
-                <input type="text" name="keuntungan_3" class="form-control" value="{{ old('keuntungan_3') }}" placeholder="Keuntungan 3">
-            </div>
         </div>
 
         <div class="mb-4">

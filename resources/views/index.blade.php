@@ -140,25 +140,29 @@
                 </div>
                 @endforeach
 
+                @foreach($layanans->where('judul', 'Sengketa Lahan') as $sengketa)
                 <div class="layanan-card">
-                    <img src="image/logo hukum.svg" alt="Sengketa Lahan">
+                    <img src="{{ asset('storage/' . $sengketa->ikon) }}" alt="Sengketa Lahan">
                     <h3>Sengketa Lahan</h3>
                     <p class="subtitle">Yulistya Adi Nugraha</p>
                     <div class="card-footer">
                         <span class="tag">95% kasus tertangani</span>
-                        <a href="hukumsengketa.html" class="btn-detail">Lihat Detail</a>
+                        <a href="{{ route('layanan.detail', $sengketa->slug) }}" class="btn-detail">Lihat Detail</a>
                     </div>
                 </div>
+                @endforeach
 
+                @foreach($layanans->where('judul', 'Hukum Kontrak') as $kontrak)
                 <div class="layanan-card">
-                    <img src="image/logo hukum.svg" alt="Kontrak">
+                    <img src="{{ asset('storage/' . $kontrak->ikon) }}" alt="Kontrak">
                     <h3>Kontrak</h3>
                     <p class="subtitle">Yulistya Adi Nugraha</p>
                     <div class="card-footer">
                         <span class="tag">95% kasus tertangani</span>
-                        <a href="hukumkontrak.html" class="btn-detail" >Lihat Detail</a>
+                        <a href="{{ route('layanan.detail', $kontrak->slug) }}" class="btn-detail" >Lihat Detail</a>
                     </div>
                 </div>
+                @endforeach
             </div>
 
             <div class="layanan-bottom">
@@ -187,14 +191,6 @@
                     @foreach($clients as $client)
                         <img src="{{ asset('storage/' . $client->logo) }}" alt="{{ $client->nama }}">
                     @endforeach
-                    <img src="image/geprek.png" alt="Geprek">
-                    <img src="image/pertamina.png" alt="Pertamina">
-                    <img src="image/pecel.png" alt="Pecel Lele">
-                    <img src="image/indomie.png" alt="Indomie">
-                    <img src="image/geprek.png" alt="Geprek">
-                    <img src="image/pertamina.png" alt="Pertamina">
-                    <img src="image/pecel.png" alt="Pecel Lele">
-                    <img src="image/indomie.png" alt="Indomie">
                 </div>
             </div>
 
@@ -246,6 +242,7 @@
                 </article>
                 @endforeach
 
+                @foreach($blogs->where('judul', 'Kasus Sengketa Lahan') as $sengketaBlog)
                 <article class="blog-card">
                     <a href="#" class="blog-link">
                         <div class="blog-img-wrapper">
@@ -257,7 +254,9 @@
                         </div>
                     </a>
                 </article>
+                @endforeach
 
+                @foreach($blogs->where('judul', 'Kasus Hukum Kontrak') as $kontrakBlog)
                 <article class="blog-card">
                     <a href="#" class="blog-link">
                         <div class="blog-img-wrapper">
@@ -269,7 +268,9 @@
                         </div>
                     </a>
                 </article>
+                @endforeach
             </div>
+           
 
             <div class="cta-bottom">
                 <p>Butuh pendampingan hukum yang tepat?<br>

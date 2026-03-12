@@ -18,17 +18,11 @@
         <section class="content-section">
             <h2>Apa Itu {{ $layanan->judul ?? 'Hukum Bisnis?' }}?</h2>
             <p>{{ $layanan->apa_itu ?? 'Hukum Bisnis (atau sering disebut Business Law atau Hukum Dagang) adalah seperangkat aturan dan norma hukum yang mengatur tata cara dan pelaksanaan kegiatan usaha, industri, ataupun keuangan.' }}</p>
-            <p>Secara sederhana, hukum bisnis adalah "aturan main" yang harus dipatuhi oleh pelaku usaha agar kegiatan bisnis berjalan tertib, adil, dan memiliki kepastian hukum.</p>
         </section>
 
         <section class="content-section highlight-bg">
             <h2>Mengapa Anda Membutuhkan {{ $layanan->judul ?? 'Hukum Bisnis' }}?</h2>
             <p>{{ $layanan->mengapa_butuh ?? 'Memiliki fondasi hukum yang kuat bukan sekadar formalitas, melainkan investasi strategis untuk menjaga keberlangsungan dan keamanan operasional perusahaan Anda. Berikut adalah beberapa alasan mengapa layanan hukum bisnis sangat penting:' }}</p>
-            <ul class="features-list">
-                <li><strong>Perlindungan Aset dan Transaksi:</strong>  Legalitas yang tertib melindungi aset perusahaan (baik fisik maupun intelektual) dan mengamankan setiap transaksi bisnis dari potensi kerugian, penipuan, atau wanprestasi oleh pihak ketiga.</li>
-                <li><strong>Kejelasan Hubungan Kerjasama:</strong>Dengan adanya kontrak dan perjanjian yang dirancang secara profesional, hak dan kewajiban antara pendiri, pemegang saham, mitra, maupun karyawan menjadi jelas, sehingga mencegah konflik internal yang dapat menghancurkan bisnis dari dalam. </li>
-                <li><strong>Kredibilitas dan Potensi Investasi: </strong>Bisnis yang taat hukum dan memiliki legalitas lengkap (seperti perizinan yang sah dan kontrak yang standar) jauh lebih dipercaya oleh bank, investor, dan mitra strategis, membuka peluang pendanaan dan ekspansi yang lebih luas. </li>
-            </ul>
         </section>
 
         <section class="benefits-section">
@@ -37,14 +31,14 @@
             <div class="cards-container">
                 @if($layanan->keuntungan_1)
                 <div class="card">
-                    <h3>Kepastian & Keamanan Operasional</h3>
+                    <h3>{{ $layanan->keuntungan_1_title ?? 'Kepastian & Keamanan Operasional' }}</h3>
                     <p>{{ $layanan->keuntungan_1 ?? 'Layanan hukum bisnis memberikan Anda kepastian bahwa setiap langkah operasional—mulai dari pendirian usaha hingga transaksi dagang—telah sesuai dengan regulasi yang berlaku. Hal ini melindungi bisnis Anda dari risiko sanksi administratif, denda, atau penghentian paksa oleh otoritas terkait.' }}</p>
                 </div>
                 @endif
 
                 @if($layanan->keuntungan_2)
                 <div class="card">
-                    <h3>Legitimasi & Kredibilitas Profesional</h3>
+                    <h3>{{ $layanan->keuntungan_2_title ?? 'Legitimasi & Kredibilitas Profesional' }}</h3>
                     <p>{{ $layanan->keuntungan_2 ?? 'Memiliki legalitas badan usaha dan perjanjian yang standar mengakui keberadaan bisnis Anda secara sah di mata negara dan mitra. Status ini meningkatkan kepercayaan investor, perbankan, dan klien, serta mencegah sengketa internal mengenai kepemilikan aset atau saham perusahaan.' }}</p>
                 </div>
                 @endif
