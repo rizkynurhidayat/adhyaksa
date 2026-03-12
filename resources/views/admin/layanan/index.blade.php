@@ -60,9 +60,6 @@
                     </td>
                     <td>
                         <div class="d-flex justify-content-center gap-2">
-                            <a href="{{ route('admin.layanan.show', $layanan->id) }}" class="btn btn-sm btn-info text-white">
-                                <i class="fas fa-eye"></i> Detail
-                            </a>
 
                             <a href="{{ route('admin.layanan.edit', $layanan->id) }}" class="btn btn-sm btn-warning">
                                 <i class="fas fa-edit"></i> Edit

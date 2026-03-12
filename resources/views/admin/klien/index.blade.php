@@ -48,7 +48,6 @@
                             </td>
                             <td class="text-end pe-4">
                                 <div class="btn-group">
-                                    <a href="{{ route('admin.klien.edit', $k->id) }}" class="btn btn-sm btn-outline-primary shadow-sm">Edit</a>
                                     <form action="{{ route('admin.klien.destroy', $k->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus klien ini?')">
                                         @csrf @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-outline-danger shadow-sm">Hapus</button>
