@@ -10,9 +10,11 @@ use App\Http\Controllers\Admin\LayananController;
 use App\Http\Controllers\Admin\KlienController; 
 use App\Http\Controllers\Admin\BlogController; 
 use App\Http\Controllers\Admin\StatistikController;
-use App\Models\HeroSection; 
+use App\Models\HeroSection;
+use App\Models\Klien;
+use App\Models\Blog;
+use App\Models\Layanan as LayananModel;
 use App\Models\ProfilPendiri;
-use App\Models\Layanan;
 
 // Landing Page Routes (Public)
 
@@ -38,7 +40,13 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     
     // Dashboard
-    Route::get('/dashboard', function () { return view('admin.dashboard'); })->name('dashboard');
+    Route::get('/dashboard', function () {
+        $totalKlien   = Klien::count();
+        $totalBlog    = Blog::count();
+        $totalLayanan = LayananModel::count();
+
+        return view('admin.dashboard', compact('totalKlien', 'totalBlog', 'totalLayanan'));
+    })->name('dashboard');
 
     // Hero Section (Single Data - Gunakan PUT)
     Route::get('/hero', [HeroSectionController::class, 'index'])->name('hero.index');

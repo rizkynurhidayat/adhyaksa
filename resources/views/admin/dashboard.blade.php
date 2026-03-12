@@ -12,7 +12,8 @@
 
     {{-- Statistics Cards --}}
     <div class="stats-grid">
-        {{-- Stat 1 --}}
+
+        {{-- Stat 1: Total Klien --}}
         <div class="admin-card stat-card">
             <div class="stat-icon blue">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -23,12 +24,26 @@
                 </svg>
             </div>
             <div class="stat-info">
-                <h3>—</h3>
+                <h3>{{ $totalKlien }}</h3>
                 <p>Total Klien</p>
             </div>
         </div>
 
-        {{-- Stat 2 --}}
+        {{-- Stat 2: Total Layanan --}}
+        <div class="admin-card stat-card">
+            <div class="stat-icon purple">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                </svg>
+            </div>
+            <div class="stat-info">
+                <h3>{{ $totalLayanan }}</h3>
+                <p>Total Layanan</p>
+            </div>
+        </div>
+
+        {{-- Stat 3: Total Blog --}}
         <div class="admin-card stat-card">
             <div class="stat-icon green">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -39,37 +54,11 @@
                 </svg>
             </div>
             <div class="stat-info">
-                <h3>—</h3>
+                <h3>{{ $totalBlog }}</h3>
                 <p>Total Blog</p>
             </div>
         </div>
 
-        {{-- Stat 3 --}}
-        <div class="admin-card stat-card">
-            <div class="stat-icon purple">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-                </svg>
-            </div>
-            <div class="stat-info">
-                <h3>—</h3>
-                <p>Total Layanan</p>
-            </div>
-        </div>
-
-        {{-- Stat 4 --}}
-        <div class="admin-card stat-card">
-            <div class="stat-icon orange">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                </svg>
-            </div>
-            <div class="stat-info">
-                <h3>—</h3>
-                <p>Total Kontak Masuk</p>
-            </div>
-        </div>
     </div>
 
 @endsection
