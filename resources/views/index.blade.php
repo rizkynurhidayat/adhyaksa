@@ -142,30 +142,6 @@
                     </div>
                 </div>
                 @endforeach
-
-                @foreach($layanans->where('judul', 'Sengketa Lahan') as $sengketa)
-                <div class="layanan-card">
-                    <img src="{{ asset('storage/' . $sengketa->ikon) }}" alt="Sengketa Lahan">
-                    <h3>Sengketa Lahan</h3>
-                    <p class="subtitle">Yulistya Adi Nugraha</p>
-                    <div class="card-footer">
-                        <span class="tag">95% kasus tertangani</span>
-                        <a href="{{ route('layanan.detail', $sengketa->slug) }}" class="btn-detail">Lihat Detail</a>
-                    </div>
-                </div>
-                @endforeach
-
-                @foreach($layanans->where('judul', 'Hukum Kontrak') as $kontrak)
-                <div class="layanan-card">
-                    <img src="{{ asset('storage/' . $kontrak->ikon) }}" alt="Kontrak">
-                    <h3>Kontrak</h3>
-                    <p class="subtitle">Yulistya Adi Nugraha</p>
-                    <div class="card-footer">
-                        <span class="tag">95% kasus tertangani</span>
-                        <a href="{{ route('layanan.detail', $kontrak->slug) }}" class="btn-detail" >Lihat Detail</a>
-                    </div>
-                </div>
-                @endforeach
             </div>
 
             <div class="layanan-bottom">

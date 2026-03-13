@@ -49,7 +49,7 @@
         </div>
 
         <div class="row mb-4">
-            <label class="form-label d-block">Poin-Poin Keuntungan (Max 3)</label>
+            <label class="form-label d-block">Poin-Poin Keuntungan (Max 2)</label>
             <div class="col-md-4 mb-2">
                 <input type="text" name="keuntungan_1" class="form-control" value="{{ old('keuntungan_1') }}" placeholder="Keuntungan 1">
             </div>
