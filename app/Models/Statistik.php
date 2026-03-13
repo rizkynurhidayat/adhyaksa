@@ -3,21 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Klien extends Model
+class Statistik extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
-        'nama',
-        'logo',
-        'website',
         'klien_terlayani',
         'kasus_sukses',
         'tahun_pengalaman',
-        'is_active',
-        'urutan',
-    ];
-
-    protected $casts = [
-        'is_active' => 'boolean',
     ];
 }

@@ -10,27 +10,53 @@ class KontakController extends Controller
 {
     public function index()
     {
-        $kontak = Kontak::first();
-        return view('admin.kontak.index', compact('kontak'));
+        $kontaks = Kontak::all();
+        return view('admin.kontak.index', compact('kontaks'));
+    }
+
+    public function create()
+    {
+        return view('admin.kontak.create');
+    }
+
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'jenis'          => 'required|string|in:email,whatsapp,lokasi,iframe_peta',
+            'judul_tampilan' => 'required|string|max:255',
+            'url_tautan'     => 'required|string',
+        ]);
+
+        Kontak::create($validatedData);
+
+        return redirect()->route('admin.kontak.index')->with('success', 'Kontak berhasil ditambahkan.');
+    }
+
+    public function edit(string $id)
+    {
+        $kontak = Kontak::findOrFail($id);
+        return view('admin.kontak.edit', compact('kontak'));
     }
 
     public function update(Request $request, string $id)
     {
-        $kontak = Kontak::findOrFail($id);
-
         $validatedData = $request->validate([
-            'email_1' => 'required|email|max:255',
-            'email_2' => 'nullable|email|max:255',
-            'wa_1' => 'required|string|max:20',
-            'wa_2' => 'nullable|string|max:20',
-            'alamat' => 'required|string',
-            'link_google_maps' => 'required|url|max:255',
+            'jenis'          => 'required|string|in:email,whatsapp,lokasi,iframe_peta',
+            'judul_tampilan' => 'required|string|max:255',
+            'url_tautan'     => 'required|string',
         ]);
 
+        $kontak = Kontak::findOrFail($id);
         $kontak->update($validatedData);
 
         return redirect()->route('admin.kontak.index')->with('success', 'Kontak berhasil diperbarui.');
     }
 
+    public function destroy(string $id)
+    {
+        $kontak = Kontak::findOrFail($id);
+        $kontak->delete();
 
+        return redirect()->route('admin.kontak.index')->with('success', 'Kontak berhasil dihapus.');
+    }
 }

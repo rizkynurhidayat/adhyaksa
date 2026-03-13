@@ -13,6 +13,7 @@
 
 
     <!-- ================== navbar ==================-->
+     
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
@@ -39,28 +40,35 @@
             </div>
         </div>
     </nav>
-
-    <a href="https://wa.me" class="wa-float" target="_blank">
+    @php $hasWA = false; @endphp
+                @foreach($kontaks->where('jenis', 'whatsapp') as $wa)
+    <a href="{{ $wa->url_tautan }}" class="wa-float" target="_blank">
         <img src="image/wa.png" alt="">
         <span>Chat Gratis 15 Menit</span>
     </a>
+    @php $hasWA = true; @endphp
+                @endforeach
     
 
     <!--================== Beranda  ==================-->
-    <header class="hero">
-        <div class="hero-overlay"></div>
+    <header class="hero" style="background: url('{{ $HeroSection && $HeroSection->bg_image ? asset('storage/' . $HeroSection->bg_image) : asset('image/back-law.jpg') }}') no-repeat center center / cover;">        
+        <div class="hero-overlay"></div>        
         <div class="container hero-wrapper">
             <div class="hero-text">
                 <img src="image/simbol1.svg" alt="Icon" class="hero-icon">
-                <h1>Mitra Hukum Terpercaya <br><span>untuk Bisnis Anda</span></h1>
-                <p>Jasa konsultan hukum profesional yang memberikan solusi tepat, terpercaya, dan sesuai peraturan bagi individu maupun perusahaan.</p>
+                <h1>{{ $HeroSection ? $HeroSection->tagline_light : 'Mitra Hukum Terpercaya' }} <br><span>{{ $HeroSection ? $HeroSection->tagline_gold : 'untuk Bisnis Anda' }}</span></h1>
+                <p>{{ $HeroSection ? $HeroSection->deskripsi : 'Jasa konsultan hukum profesional yang memberikan solusi tepat, terpercaya, dan sesuai peraturan bagi individu maupun perusahaan.' }}</p>
                 <a href="#layanankami">
-                    <button class="btn-main">Dapatkan Layanan Kami</button>
+                    <button class="btn-main">{{ $HeroSection ? $HeroSection->teks_tombol : 'Dapatkan Layanan Kami' }}</button>
                 </a>
             </div>
 
             <div class="hero-image">
-                <img src="image/imglawyer.png" alt="Lawyers">
+        @if($HeroSection && $HeroSection->lawyer_image)
+            <img src="{{ asset('storage/' . $HeroSection->lawyer_image) }}" alt="Lawyers">
+        @else
+            <img src="{{ asset('image/imglawyer.png') }}" alt="Lawyers">
+        @endif
             </div>
         </div>
     </header>
@@ -78,24 +86,31 @@
 
             <div class="founder-content">
                 <div class="founder-image-box">
-                    <img src="image/yulistia.png" alt="Yulistya Adi Nugraha">
+                    @if(isset($profil->foto) && $profil->foto)
+                        <img src="{{ asset('storage/' . $profil->foto) }}" alt="{{ $profil->nama ?? 'Pendiri' }}">
+                    @else
+                        <img src="image/yulistia.png" alt="Pendiri">
+                    @endif
                 </div>
 
                 <div class="founder-details">
-                    <h1 class="main-name">Yulistya Adi Nugraha S.H., M.Kn</h1>
+                    <h1 class="main-name">{{ $profil->nama ?? 'Yulistya Adi Nugraha S.H., M.Kn' }}</h1>
+                    @if(isset($profil->position) && $profil->position)
+                        <p class="founder-position" style="color: #c8a45a; font-weight: 600; margin-bottom: 10px;">{{ $profil->position }}</p>
+                    @endif
                     <p class="description">
-                        Meskipun kami berbasis di Kabupaten Tegal, layanan kenotariatan kami siap <br>membantu klien dari
-                        berbagai latar belakang—termasuk pemilik tanah di wilayah pelosok yang belum bersertifikat—untuk
-                        menembus kendala administrasi yang berbelit dan mendapatkan hak hukum mereka sepenuhnya.
+                        {{ $profil->deskripsi ?? 'Meskipun kami berbasis di Kabupaten Tegal, layanan kenotariatan kami siap membantu klien dari berbagai latar belakang—termasuk pemilik tanah di wilayah pelosok yang belum bersertifikat—untuk menembus kendala administrasi yang berbelit dan mendapatkan hak hukum mereka sepenuhnya.' }}
                     </p>
 
                     <div class="founder-stats">
+
                         <div class="stat-box gray-box">
-                            <span class="stat-number">95%</span>
-                            <span class="stat-desc">Kasus Sukses</span>
+                            <span class="stat-number">{{ $profil->kasus_sukses ?? '95' }}+</span>
+                            <span class="stat-desc">Kasus<br>Berhasil</span>
                         </div>
+
                         <div class="stat-box gold-box">
-                            <span class="stat-number">12+</span>
+                            <span class="stat-number">{{ $profil->tahun_pengalaman ?? '12' }}+</span>
                             <span class="stat-desc">Tahun<br>Pengalaman</span>
                         </div>
                     </div>
@@ -116,41 +131,47 @@
             </div>
 
             <div class="layanan-grid">
+                @foreach($layanans as $layanan)
                 <div class="layanan-card">
-                    <img src="image/logo hukum.svg" alt="Hukum Bisnis">
-                    <h3>Hukum Bisnis</h3>
-                    <p class="subtitle">Yulistya Adi Nugraha</p>
+                    <img src="{{ asset('storage/' . $layanan->ikon) }}" alt="{{ $layanan->judul }}">
+                    <h3>{{ $layanan->judul }}</h3>
+                    <p class="subtitle">{{ $layanan->deskripsi_singkat }}</p>
                     <div class="card-footer">
-                        <span class="tag">95% kasus tertangani</span>
-                        <a href="hukumbisnis.html" class="btn-detail">Lihat Detail</a>
+                        <span class="tag">{{ $layanan->persentase_kasus ?? '95' }}% kasus tertangani</span>
+                        <a href="{{ route('layanan.detail', $layanan->slug) }}" class="btn-detail">Lihat Detail</a>
                     </div>
                 </div>
+                @endforeach
 
+                @foreach($layanans->where('judul', 'Sengketa Lahan') as $sengketa)
                 <div class="layanan-card">
-                    <img src="image/logo hukum.svg" alt="Sengketa Lahan">
+                    <img src="{{ asset('storage/' . $sengketa->ikon) }}" alt="Sengketa Lahan">
                     <h3>Sengketa Lahan</h3>
                     <p class="subtitle">Yulistya Adi Nugraha</p>
                     <div class="card-footer">
                         <span class="tag">95% kasus tertangani</span>
-                        <a href="hukumsengketa.html" class="btn-detail">Lihat Detail</a>
+                        <a href="{{ route('layanan.detail', $sengketa->slug) }}" class="btn-detail">Lihat Detail</a>
                     </div>
                 </div>
+                @endforeach
 
+                @foreach($layanans->where('judul', 'Hukum Kontrak') as $kontrak)
                 <div class="layanan-card">
-                    <img src="image/logo hukum.svg" alt="Kontrak">
+                    <img src="{{ asset('storage/' . $kontrak->ikon) }}" alt="Kontrak">
                     <h3>Kontrak</h3>
                     <p class="subtitle">Yulistya Adi Nugraha</p>
                     <div class="card-footer">
                         <span class="tag">95% kasus tertangani</span>
-                        <a href="hukumkontrak.html" class="btn-detail" >Lihat Detail</a>
+                        <a href="{{ route('layanan.detail', $kontrak->slug) }}" class="btn-detail" >Lihat Detail</a>
                     </div>
                 </div>
+                @endforeach
             </div>
 
             <div class="layanan-bottom">
                 <p>Kami menyediakan layanan konsultasi hukum profesional yang berfokus pada <br>
                     ketepatan, kerahasiaan, dan solusi terbaik untuk setiap permasalahan hukum Anda.</p>
-                <a href="#" class="btn-konsultasi-large">Konsultasi</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScMLys1zr-66y0z_Vic4mXvhJWDy6JvxNRlsQv9KHw44BmXig/viewform" class="btn-konsultasi-large">Konsultasi</a>
             </div>
         </div>
     </section>
@@ -170,33 +191,28 @@
 
             <div class="logo-slider">
                 <div class="logo-track">
-                    <img src="image/geprek.png" alt="Geprek">
-                    <img src="image/pertamina.png" alt="Pertamina">
-                    <img src="image/pecel.png" alt="Pecel Lele">
-                    <img src="image/indomie.png" alt="Indomie">
-                    <img src="image/geprek.png" alt="Geprek">
-                    <img src="image/pertamina.png" alt="Pertamina">
-                    <img src="image/pecel.png" alt="Pecel Lele">
-                    <img src="image/indomie.png" alt="Indomie">
+                    @foreach($clients as $client)
+                        <img src="{{ asset('storage/' . $client->logo) }}" alt="{{ $client->nama }}">
+                    @endforeach
                 </div>
             </div>
 
             <div class="stats-container-row">
                 <div class="stat-item gold-card">
-                    <span class="stat-val">100+</span>
+                    <span class="stat-val">{{ $clientCount ?? '100+' }}</span>
                     <span class="stat-lab">Klien<br>Terlayani</span>
                 </div>
                 
                 <div class="stat-item dark-card">
                     <i class="fas fa-file-alt"></i>
                     <div class="stat-text-group">
-                        <span class="stat-val">95%</span>
+                        <span class="stat-val">{{ $successRate ?? '95%' }}</span>
                         <span class="stat-lab">Kasus Sukses</span>
                     </div>
                 </div>
 
                 <div class="stat-item gold-card">
-                    <span class="stat-val">12+</span>
+                    <span class="stat-val">{{ $experienceYears ?? '12+' }}</span>
                     <span class="stat-lab">Tahun<br>Pengalaman</span>
                 </div>
             </div>
@@ -215,18 +231,21 @@
             </div>
 
             <div class="blog-grid">
+                @foreach($blogs as $blog)
                 <article class="blog-card">
-                    <a href="#" class="blog-link">
-                        <div class="blog-img-wrapper">
-                            <img src="image/img blog1.png" alt="Kasus Hukum Bisnis">
+                <a href="{{ $blog->url_link }}" class="blog-link" target="_blank">                        
+                    <div class="blog-img-wrapper">
+                            <img src="{{ asset('storage/' . $blog->gambar) }}" alt="{{ $blog->judul }}">
                         </div>
                         <div class="blog-content">
-                            <h4>Adhyaksa & Partners Berhasil memenangkan kasus hukum bisnis</h4>
-                            <span class="stat-tag">97% orang terbantu</span>
+                            <h4>{{ $blog->judul }}</h4>
+                            <span class="stat-tag">{{ $blog->tag_statistik }}</span>
                         </div>
                     </a>
                 </article>
+                @endforeach
 
+                @foreach($blogs->where('judul', 'Kasus Sengketa Lahan') as $sengketaBlog)
                 <article class="blog-card">
                     <a href="#" class="blog-link">
                         <div class="blog-img-wrapper">
@@ -238,7 +257,9 @@
                         </div>
                     </a>
                 </article>
+                @endforeach
 
+                @foreach($blogs->where('judul', 'Kasus Hukum Kontrak') as $kontrakBlog)
                 <article class="blog-card">
                     <a href="#" class="blog-link">
                         <div class="blog-img-wrapper">
@@ -250,59 +271,92 @@
                         </div>
                     </a>
                 </article>
+                @endforeach
             </div>
+           
 
             <div class="cta-bottom">
                 <p>Butuh pendampingan hukum yang tepat?<br>
                     Konsultasikan permasalahan hukum Anda dengan tim ahli kami.
                 </p>
-                <a href="#" class="btn-hubungi">Hubungi Kami</a>
+                <a href="#hubungikami" class="btn-hubungi">Hubungi Kami</a>
             </div>
         </div>
     </section>
 
     <!--================== hubungi kami ==================-->
-    <footer id="hubungikami" class="footer-section">
+
+<footer id="hubungikami" class="footer-section">
     <div class="container">
         <div class="footer-header">
             <h2>Hubungi Kami</h2>
             <div class="underline-center">
                 <i class="fas fa-balance-scale"></i>
             </div>
-            <p>Kami siap menjadi mitra hukum Anda dalam menghadapi berbagai persoalan hukum secara profesional dan terpercaya.</p>
+            <p>Kami siap menjadi mitra hukum Anda secara profesional dan terpercaya.</p>
         </div>
 
         <div class="contact-grid">
             <div class="contact-card">
                 <div class="icon-box">
-                    <img src="image/icons8-gmail-48.png">
+                    <img src="{{ asset('image/icons8-gmail-48.png') }}" alt="Email">
                 </div>
                 <h3>Email Kami</h3>
-                <a href="mailto:adhyaksapartners@gmail.com">adhyaksapartners@gmail.com</a>
-                <a href="mailto:mitrahukum_anda@gmail.com">mitrahukum_anda@gmail.com</a>
+                @php $hasEmail = false; @endphp
+                @foreach($kontaks->where('jenis', 'email') as $email)
+                    <a href="{{ $email->url_tautan }}">
+                        {{ $email->judul_tampilan }}
+                    </a><br>
+                    @php $hasEmail = true; @endphp
+                @endforeach
+                @if(!$hasEmail)
+                    <a href="mailto:adhyaksapartners@gmail.com">adhyaksapartners@gmail.com</a>
+                @endif
             </div>
 
             <div class="contact-card">
                 <div class="icon-box">
-                    <img src="image/wa.png">
+                    <img src="{{ asset('image/wa.png') }}" alt="WhatsApp">
                 </div>
                 <h3>WhatsApp</h3>
-                <a href="https://wa.me" target="_blank">+62 882-3962-7371</a>
-                <a href="https://wa.me" target="_blank">+62 857-7952-4825</a>
+                @php $hasWA = false; @endphp
+                @foreach($kontaks->where('jenis', 'whatsapp') as $wa)
+                    <a href="{{ $wa->url_tautan }}" target="_blank">
+                        {{ $wa->judul_tampilan }}
+                    </a><br>
+                    @php $hasWA = true; @endphp
+                @endforeach
+                @if(!$hasWA)
+                    <a href="https://wa.me/6288239627371" target="_blank">+62 882-3962-7371</a>
+                @endif
             </div>
 
             <div class="contact-card">
                 <div class="icon-box">
-                    <img src="image/google-maps.png">
+                    <img src="{{ asset('image/google-maps.png') }}" alt="Lokasi">
                 </div>
                 <h3>Lokasi Kantor</h3>
-                <a href="https://maps.app.goo.gl/KpLbCPbegLo3VVkR9">Jl. KH. Agus Salim, Kudaile, Kec. Slawi, Kab. Tegal 524135</a>
+                @php $hasLokasi = false; @endphp
+                @foreach($kontaks->where('jenis', 'lokasi') as $lokasi)
+                    <a href="{{ $lokasi->url_tautan }}" target="_blank">
+                        {{ $lokasi->judul_tampilan }}
+                    </a><br>
+                    @php $hasLokasi = true; @endphp
+                @endforeach
+                @if(!$hasLokasi)
+                    <a href="#" target="_blank">Jl. KH. Agus Salim, Kudaile, Kec. Slawi, Kab. Tegal</a>
+                @endif
             </div>
         </div>
     </div>
 
     <div class="map-container">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31682.214506683496!2d109.10645432552936!3d-6.976630553532447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6fbeef3f898a49%3A0x9ab741554fbee2ec!2sNotaris%20Yulistya%20Adi%20Nugraha.%2C%20S.H.M.Kn!5e0!3m2!1sid!2sid!4v1768187812085!5m2!1sid!2sid" width="900" height="450" style="border:0;"  allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        @php $peta = $kontaks->where('jenis', 'iframe_peta')->first(); @endphp
+        @if($peta)
+            {!! $peta->url_tautan !!}
+        @else
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31682.214506683496!2d109.10645432552936!3d-6.976630553532447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6fbeef3f898a49%3A0x9ab741554fbee2ec!2sNotaris%20Yulistya%20Adi%20Nugraha.%2C%20S.H.M.Kn!5e0!3m2!1sid!2sid!4v1768187812085!5m2!1sid!2sid" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        @endif
     </div>
 
     <div class="footer-bottom">
@@ -372,5 +426,20 @@
     </footer> -->
     <!--================== pemanggilan js ==================-->
     <script src="{{ asset('script.js') }}"></script>
+    <script>
+    // Fungsi ini berjalan otomatis saat halaman selesai loading
+    window.addEventListener('load', function() {
+        // Cek apakah di alamat web ada tulisan #hubungikami
+        if (window.location.hash === '#hubungikami') {
+            const footer = document.getElementById('hubungikami');
+            if (footer) {
+                // Beri jeda 300ms agar browser tenang dulu, baru scroll ke bawah
+                setTimeout(() => {
+                    footer.scrollIntoView({ behavior: 'smooth' });
+                }, 300); 
+            }
+        }
+    });
+</script>
 </body>
 </html>

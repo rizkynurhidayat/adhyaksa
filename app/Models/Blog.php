@@ -2,23 +2,19 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Blog extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'judul',
-        'slug',
         'gambar',
-        'ringkasan',
-        'konten',
         'tag_statistik',
-        'is_published',
+        'url_link',
         'tanggal_publish',
-    ];
-
-    protected $casts = [
-        'is_published' => 'boolean',
-        'tanggal_publish' => 'datetime',
+        'is_active'
     ];
 }

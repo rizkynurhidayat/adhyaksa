@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('nama');
             $table->string('foto')->nullable();
             $table->text('deskripsi');
-            $table->string('persentase_kasus')->default('95%');
-            $table->string('tahun_pengalaman')->default('12+');
+            $table->integer('kasus_sukses')->default(95);
+            $table->integer('tahun_pengalaman')->default(12);
             $table->timestamps();
         });
     }

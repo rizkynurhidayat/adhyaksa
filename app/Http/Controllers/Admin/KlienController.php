@@ -13,6 +13,7 @@ class KlienController extends Controller
     {
         // Urutkan berdasarkan kolom 'urutan' agar tampilan di user bisa diatur
         $kliens = Klien::orderBy('urutan', 'asc')->get();
+        
         return view('admin.klien.index', compact('kliens'));
     }
 
@@ -27,9 +28,6 @@ class KlienController extends Controller
             'nama'              => 'required|string|max:255',
             'logo'              => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'website'           => 'nullable|url',
-            'button_pengalaman' => 'nullable|string',
-            'button_sukses'     => 'nullable|string',
-            'button_terlayani'  => 'nullable|string',
             'is_active'         => 'boolean',
             'urutan'            => 'nullable|integer',
         ]);
@@ -60,9 +58,6 @@ class KlienController extends Controller
             'nama'              => 'required|string|max:255',
             'logo'              => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'website'           => 'nullable|url',
-            'button_pengalaman' => 'nullable|string',
-            'button_sukses'     => 'nullable|string',
-            'button_terlayani'  => 'nullable|string',
             'is_active'         => 'boolean',
             'urutan'            => 'nullable|integer',
         ]);
